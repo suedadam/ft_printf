@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/10/22 00:10:20 by suedadam         ###   ########.fr       */
+/*   Updated: 2017/10/24 00:05:04 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 # include "libft.h" 
 
 int		ft_printf(const char *str, ...);
-char 	*numbase(size_t dec, int base);
+void 	numbase(size_t dec, int base, char **output);
 
 #endif

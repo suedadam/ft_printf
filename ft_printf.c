@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/21 00:25:11 by asyed             #+#    #+#             */
-/*   Updated: 2017/10/22 21:34:46 by suedadam         ###   ########.fr       */
+/*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
+/*   Updated: 2017/10/24 00:50:41 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,42 +44,70 @@ void 	printmem(char *str, size_t n)
 	ft_putstr("\n==============\n");
 }
 
-char 	*numbase(size_t dec, int base)
+void numbase(size_t dec, int base, char **output)
 {
-	char 	*output;
-	// size_t 	length;
-	int 	i;
-	int 	r;
-	float	ratio;
-
-	i = 0;
-
-	// length = numlength(dec);
-	// r = length;
-	ratio = ceil((float)dec / (float)base);
-	r = ratio;
-
-	// printf("Ratio = %f\n", ratio);
-
-	output = (char *)ft_memalloc(ratio-- * sizeof(char));
-
-	while (dec)
-	{
-		output[(int)ratio] = "0123456789ABCDEF"[dec % base];
-		// printf("output[%d] = %c\n", (int)ratio, output[(int)ratio]);
-		ratio--;
-		dec /= base;
-	}
-	// printf("[1] = %c\n", output[1]);
-	// while (output[i])
-	// {
-	// 	printf("(%d) %c\n", i, output[i]);
-	// 	i++;
-	// }
-	// printmem(output, r + 1);
-	// printf("Output = %s\n", output);
-	return (output);
+	if (!dec)
+		return ;
+	numbase(dec / base, base, output);
+	**output = "0123456789abcdef"[dec % base];
+	(*output)++;
 }
+
+// char 	*numbase(size_t dec, int base)
+// {
+// 	char 	*output;
+// 	int 	i;
+
+// 	i = numlength(dec);
+
+// 	output = (char *)ft_memalloc(i-- * sizeof(char));
+
+// 	while (dec)
+// 	{
+// 		output[i] = "0123456789ABCDEF"[dec & 0xF];
+// 		printf("output[%d] = %c\n", i, output[i]);
+// 		dec /= base;
+// 		i--;
+// 	}
+// 	return (output);
+// }
+
+// char 	*numbase(size_t dec, int base)
+// {
+// 	char 	*output;
+// 	// size_t 	length;
+// 	int 	i;
+// 	int 	r;
+// 	float	ratio;
+
+// 	i = 0;
+
+// 	// length = numlength(dec);
+// 	// r = length;
+// 	ratio = ceil((float)dec / (float)base);
+// 	r = ratio;
+
+// 	// printf("Ratio = %f\n", ratio);
+
+// 	output = (char *)ft_memalloc(ratio-- * sizeof(char));
+
+// 	while (dec)
+// 	{
+// 		output[(int)ratio] = "0123456789ABCDEF"[dec % base];
+// 		printf("output[%d] = %c\n", (int)ratio, output[(int)ratio]);
+// 		ratio--;
+// 		dec /= base;
+// 	}
+// 	// printf("[1] = %c\n", output[1]);
+// 	// while (output[i])
+// 	// {
+// 	// 	printf("(%d) %c\n", i, output[i]);
+// 	// 	i++;
+// 	// }
+// 	// printmem(output, r + 1);
+// 	// printf("Output = %s\n", output);
+// 	return (output);
+// }
 
 int	string(int fd, va_list ap)
 {
@@ -101,10 +129,34 @@ int charparse(int fd, va_list ap)
 
 int	hexadec(int fd, va_list ap)
 {
-	ft_putstr(numbase(va_arg(ap, unsigned int), 16));
-	// printf("Pointer func: \"%s\"\n", numbase(va_arg(ap, unsigned int), 16));
-	// printf("POinter func: \"%p\"\n", (char *)va_arg(ap, char *));
-	// ft_putstr((char *)va_arg(ap, char *));
+	size_t	hex;
+	char	*output;
+	char	*save;
+
+	hex = va_arg(ap, size_t);
+	output = ft_memalloc(10 * sizeof(char));
+	save = output;
+	numbase(hex, 16, &output);
+	output = save;
+	ft_putstr("0x7fff");
+	ft_putstr(output);
+	return (1);
+}
+
+int 	pointeraddr(int fd, va_list ap)
+{
+	size_t	hex;
+	char	*output;
+	char	*save;
+
+	hex = va_arg(ap, size_t);
+	output = ft_memalloc(17 * sizeof(char));
+	save = output;
+	numbase(hex & 0x7fffffffffff, 16, &output);
+	output = save;
+	// ft_putstr("0x7fff");
+	ft_putstr("0x");
+	ft_putstr(output);
 	return (1);
 }
 
@@ -120,7 +172,7 @@ int	ft_printf(const char *str, ...)
 		int		(*func)(int, va_list);
 	};
 
-	struct 	entry table[] = { {"s", &string}, {"d", &integer}, {"c", &charparse}, {"x", &hexadec}, {NULL, NULL}};
+	struct 	entry table[] = { {"s", &string}, {"d", &integer}, {"c", &charparse}, {"x", &hexadec}, {"p", &pointeraddr}, {NULL, NULL}};
 
 	va_start(ap, str);
 	while (*str)
