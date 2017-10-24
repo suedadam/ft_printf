@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/10/21 01:23:51 by asyed            ###   ########.fr       */
+/*   Updated: 2017/10/22 00:10:20 by suedadam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include "libft.h" 
 
 int		ft_printf(const char *str, ...);
-void	ft_putchar(char c);
+char 	*numbase(size_t dec, int base);
 
 #endif
