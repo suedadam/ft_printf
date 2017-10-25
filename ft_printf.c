@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/10/24 00:50:41 by asyed            ###   ########.fr       */
+/*   Updated: 2017/10/25 13:58:21 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,15 @@ void 	printmem(char *str, size_t n)
 	ft_putstr("\n==============\n");
 }
 
-void numbase(size_t dec, int base, char **output)
+void numbase(size_t dec, int base, char **output, uint8_t caps)
 {
 	if (!dec)
 		return ;
-	numbase(dec / base, base, output);
-	**output = "0123456789abcdef"[dec % base];
+	numbase(dec / base, base, output, caps);
+	if (caps)
+		**output = "0123456789ABCDEF"[dec % base];
+	else
+		**output = "0123456789abcdef"[dec % base];
 	(*output)++;
 }
 
@@ -109,25 +112,25 @@ void numbase(size_t dec, int base, char **output)
 // 	return (output);
 // }
 
-int	string(int fd, va_list ap)
+int	string(int fd, va_list ap, uint8_t caps)
 {
 	ft_putstr(va_arg(ap, char *));
 	return (1);
 }
 
-int integer(int fd, va_list ap)
+int integer(int fd, va_list ap, uint8_t caps)
 {
 	ft_putnbr(va_arg(ap, int));
 	return (1);
 }
 
-int charparse(int fd, va_list ap)
+int charparse(int fd, va_list ap, uint8_t caps)
 {
 	ft_putchar((char)va_arg(ap, int));
 	return (1);
 }
 
-int	hexadec(int fd, va_list ap)
+int	hexadec(int fd, va_list ap, uint8_t caps)
 {
 	size_t	hex;
 	char	*output;
@@ -136,14 +139,29 @@ int	hexadec(int fd, va_list ap)
 	hex = va_arg(ap, size_t);
 	output = ft_memalloc(10 * sizeof(char));
 	save = output;
-	numbase(hex, 16, &output);
+	numbase(hex, 16, &output, caps);
 	output = save;
-	ft_putstr("0x7fff");
+	// ft_putstr("0x7fff");
 	ft_putstr(output);
 	return (1);
 }
 
-int 	pointeraddr(int fd, va_list ap)
+int		octal(int fd, va_list ap, uint8_t caps)
+{
+	size_t	oct;
+	char	*output;
+	char	*save;
+
+	oct = va_arg(ap, size_t);
+	output = ft_memalloc(10 * sizeof(char));
+	save = output;
+	numbase(oct, 8, &output, caps);
+	output = save;
+	ft_putstr(output);
+	return (1);
+}
+
+int 	pointeraddr(int fd, va_list ap, uint8_t caps)
 {
 	size_t	hex;
 	char	*output;
@@ -152,27 +170,32 @@ int 	pointeraddr(int fd, va_list ap)
 	hex = va_arg(ap, size_t);
 	output = ft_memalloc(17 * sizeof(char));
 	save = output;
-	numbase(hex & 0x7fffffffffff, 16, &output);
+	numbase(hex & 0x7fffffffffff, 16, &output, caps);
 	output = save;
-	// ft_putstr("0x7fff");
 	ft_putstr("0x");
 	ft_putstr(output);
+	return (1);
+}
+
+int		udecimal()
+{
 	return (1);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list ap;
+	char	c;
 	int		res;
 	int		i;
 
 
 	struct 	entry{
 		char	*command;
-		int		(*func)(int, va_list);
+		int		(*func)(int, va_list, uint8_t);
 	};
 
-	struct 	entry table[] = { {"s", &string}, {"d", &integer}, {"c", &charparse}, {"x", &hexadec}, {"p", &pointeraddr}, {NULL, NULL}};
+	struct 	entry table[] = { {"s", &string}, {"d", &integer}, {"c", &charparse}, {"x", &hexadec}, {"p", &pointeraddr}, {"i", &integer}, {"o", &octal}, {NULL, NULL}};
 
 	va_start(ap, str);
 	while (*str)
@@ -186,10 +209,12 @@ int	ft_printf(const char *str, ...)
 		i = 0;
 		while (table[i].command)
 		{
-			res = ft_strncmp(table[i].command, &*str, 1);
+			c = ft_tolower(*str);
+			res = ft_strncmp(table[i].command, &c, 1);
+			// res = ft_strncmp(table[i].command, &*str, 1);
 			if (!res)
 			{
-				table[i].func(1, ap);
+				table[i].func(1, ap, CAPS(*str));
 				str++;
 				break ;
 			}
