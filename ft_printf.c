@@ -6,15 +6,15 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/10/25 13:58:21 by asyed            ###   ########.fr       */
+/*   Updated: 2017/10/27 15:03:48 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdarg.h>
 #include <math.h>
 #include "ft_printf.h"
-
+#define IS_FLAG(c) (c == '-' || c == '0' || c == '+' || c == ' ' || c == '#')
+struct	flag_entry	flags[] = { {'#', &altform} , {'0', &padded}};
 size_t 	numlength(size_t dec)
 {
 	size_t i;
@@ -56,81 +56,38 @@ void numbase(size_t dec, int base, char **output, uint8_t caps)
 	(*output)++;
 }
 
-// char 	*numbase(size_t dec, int base)
-// {
-// 	char 	*output;
-// 	int 	i;
-
-// 	i = numlength(dec);
-
-// 	output = (char *)ft_memalloc(i-- * sizeof(char));
-
-// 	while (dec)
-// 	{
-// 		output[i] = "0123456789ABCDEF"[dec & 0xF];
-// 		printf("output[%d] = %c\n", i, output[i]);
-// 		dec /= base;
-// 		i--;
-// 	}
-// 	return (output);
-// }
-
-// char 	*numbase(size_t dec, int base)
-// {
-// 	char 	*output;
-// 	// size_t 	length;
-// 	int 	i;
-// 	int 	r;
-// 	float	ratio;
-
-// 	i = 0;
-
-// 	// length = numlength(dec);
-// 	// r = length;
-// 	ratio = ceil((float)dec / (float)base);
-// 	r = ratio;
-
-// 	// printf("Ratio = %f\n", ratio);
-
-// 	output = (char *)ft_memalloc(ratio-- * sizeof(char));
-
-// 	while (dec)
-// 	{
-// 		output[(int)ratio] = "0123456789ABCDEF"[dec % base];
-// 		printf("output[%d] = %c\n", (int)ratio, output[(int)ratio]);
-// 		ratio--;
-// 		dec /= base;
-// 	}
-// 	// printf("[1] = %c\n", output[1]);
-// 	// while (output[i])
-// 	// {
-// 	// 	printf("(%d) %c\n", i, output[i]);
-// 	// 	i++;
-// 	// }
-// 	// printmem(output, r + 1);
-// 	// printf("Output = %s\n", output);
-// 	return (output);
-// }
-
-int	string(int fd, va_list ap, uint8_t caps)
+int	string(int fd, va_list ap, uint8_t caps, t_options *info)
 {
 	ft_putstr(va_arg(ap, char *));
 	return (1);
 }
 
-int integer(int fd, va_list ap, uint8_t caps)
+int integer(int fd, va_list ap, uint8_t caps, t_options *info)
 {
-	ft_putnbr(va_arg(ap, int));
+	int num;
+	int length;
+	int i;
+
+	num = va_arg(ap, int);
+	length = numlength(num);
+	i = info->min_width;
+	while (i > length)
+	{
+		ft_putchar('0');
+		// ft_putchar((info->zero) ? '0' : ' ');
+		i--;
+	}
+	ft_putnbr(num);
 	return (1);
 }
 
-int charparse(int fd, va_list ap, uint8_t caps)
+int charparse(int fd, va_list ap, uint8_t caps, t_options *info)
 {
 	ft_putchar((char)va_arg(ap, int));
 	return (1);
 }
 
-int	hexadec(int fd, va_list ap, uint8_t caps)
+int	hexadec(int fd, va_list ap, uint8_t caps, t_options *info)
 {
 	size_t	hex;
 	char	*output;
@@ -142,11 +99,14 @@ int	hexadec(int fd, va_list ap, uint8_t caps)
 	numbase(hex, 16, &output, caps);
 	output = save;
 	// ft_putstr("0x7fff");
+	if (info->altform && ft_strcmp(output, "0"))
+		ft_putstr("0X");
 	ft_putstr(output);
+	free(output);
 	return (1);
 }
 
-int		octal(int fd, va_list ap, uint8_t caps)
+int		octal(int fd, va_list ap, uint8_t caps, t_options *info)
 {
 	size_t	oct;
 	char	*output;
@@ -157,11 +117,14 @@ int		octal(int fd, va_list ap, uint8_t caps)
 	save = output;
 	numbase(oct, 8, &output, caps);
 	output = save;
+	if (info->altform)
+		ft_putchar('0');
 	ft_putstr(output);
+	free(output);
 	return (1);
 }
 
-int 	pointeraddr(int fd, va_list ap, uint8_t caps)
+int 	pointeraddr(int fd, va_list ap, uint8_t caps, t_options *info)
 {
 	size_t	hex;
 	char	*output;
@@ -174,6 +137,7 @@ int 	pointeraddr(int fd, va_list ap, uint8_t caps)
 	output = save;
 	ft_putstr("0x");
 	ft_putstr(output);
+	free(output);
 	return (1);
 }
 
@@ -182,79 +146,157 @@ int		udecimal()
 	return (1);
 }
 
+int 	altform(int fd, va_list ap, t_options *info)
+{
+	info->altform = 1;
+	return (1);
+}
+
+int 	padded(int fd, va_list ap, t_options *info)
+{
+	info->zero = 1;
+	return (1);
+}
+
+void	flag_parse(char **str, t_options *info, va_list ap)
+{
+	int i;
+
+	while (**str && IS_FLAG(**str))
+	{
+		i = 0;
+		while (flags[i].command)
+		{
+			if (**str == flags[i].command)
+			{
+				flags[i].func(1, ap, info);
+				printf("Called a func for flag_parse()\n");
+			}
+			i++;
+		}
+		(*str)++;
+	}
+}
+
+void	percision(char **str, t_options *info, va_list ap)
+{
+	if (**str == '.')
+	{
+		(*str)++;
+		if (**str == '*')
+		{
+			info->percision = va_arg(ap, int);
+			(*str)++;
+		}
+		else if (**str >= '0' && **str <= '9')
+		{
+			info->percision = ft_atoi(*str);
+			(*str) += numlength(info->percision);
+		}
+	}
+}
+
+
+void	min_width(char **str, t_options *info, va_list ap)
+{
+	if (**str == '*')
+	{
+		info->min_width = va_arg(ap, int);
+		(*str)++;
+	}
+	else if (**str >= '0' && **str <= '9')
+	{
+		info->min_width = ft_atoi(*str);
+		(*str) += numlength(info->min_width);
+	}
+}
+
+void	length_modifiers(char **str, t_options *info, va_list ap)
+{
+
+}
+
+/*
+** https://www.lix.polytechnique.fr/~liberti/public/computing/prog/c/C/FUNCTIONS/format.html
+*/
+
 int	ft_printf(const char *str, ...)
 {
 	va_list ap;
 	char	c;
 	int		res;
 	int		i;
+	t_options	*info;
 
-
-	struct 	entry{
-		char	*command;
-		int		(*func)(int, va_list, uint8_t);
-	};
-
+	// info = (t_options *)ft_memalloc(sizeof(struct s_options *));
 	struct 	entry table[] = { {"s", &string}, {"d", &integer}, {"c", &charparse}, {"x", &hexadec}, {"p", &pointeraddr}, {"i", &integer}, {"o", &octal}, {NULL, NULL}};
 
 	va_start(ap, str);
 	while (*str)
 	{
-		if (*str != '%')
+		if (*str == '%')
 		{
-			ft_putchar(*str++);
-			continue ;
-		}
-		str++;
-		i = 0;
-		while (table[i].command)
-		{
-			c = ft_tolower(*str);
-			res = ft_strncmp(table[i].command, &c, 1);
-			// res = ft_strncmp(table[i].command, &*str, 1);
-			if (!res)
+			info = (t_options *)ft_memalloc(sizeof(t_options));
+			str++;
+			flag_parse((char **)&str, info, ap);
+			// printf("Zero = %d and min_width = %d \n(%s)\n", info->zero, info->min_width, str);
+			min_width((char **)&str, info, ap);
+			printf("Character after min_width (%s)\n", str);
+			printf("[Before] Percision flags? : %d\n", info->percision);
+			percision((char **)&str, info, ap);
+			printf("[After] Percision flags? : %d\n", info->percision);
+			length_modifiers((char **)&str, info, ap);
+			/*
+			** Still have more to do!!! D: 
+			*/
+			i = 0;
+			while(table[i].command)
 			{
-				table[i].func(1, ap, CAPS(*str));
-				str++;
-				break ;
-			}
-			else
-			{
-				// printf("Res = %d\n", res);
+				c = ft_tolower(*str);
+				res = ft_strncmp(table[i].command, &c, 1);
+				if (!res)
+				{
+					str += table[i].func(1, ap, CAPS(*str), info);
+					// str++;
+					break ;
+				}
 				i++;
 			}
+			// printf("\nChar (\"%c\")\n", *str);
+			free(info);
+			// str++;
 		}
+		else
+			ft_putchar(*str++);
 	}
 	va_end(ap);
+
+	// va_start(ap, str);
+	// while (*str)
+	// {
+	// 	if (*str != '%')
+	// 	{
+	// 		ft_putchar(*str++);
+	// 		continue ;
+	// 	}
+	// 	str++;
+	// 	if (IS_FLAG(*str))
+	// 		parseflags((char **)&str, info, ap);
+	// 	i = 0;
+	// 	while (table[i].command)
+	// 	{
+	// 		c = ft_tolower(*str);
+	// 		res = ft_strncmp(table[i].command, &c, 1);
+	// 		if (!res)
+	// 		{
+	// 			table[i].func(1, ap, CAPS(*str), info);
+	// 			str++;
+	// 			break ;
+	// 		}
+	// 		else
+	// 			i++;
+	// 	}
+	// }
+	// va_end(ap);
 	return (1);
 }
-
-
-// int	ft_printf(const char *str, ...)
-// {
-// 	va_list	ap;
-// 	int		res;
-
-// 	va_start(ap, str);
-// 	while (*str)
-// 	{
-// 		if (*str != '%')
-// 		{
-// 			ft_putchar(*str++);
-// 			continue ;
-// 		}
-// 		if (*++str == 's')
-// 			ft_putstr(va_arg(ap, char *));
-// 		else if (*str == 'c')
-// 			ft_putchar((char)va_arg(ap, int));
-// 		else if (*str == 'd')
-// 			ft_putnbr(va_arg(ap, int));
-// 		else
-// 		{
-// 			printf("Other!\n");
-// 		}
-// 		str++;
-// 	}
-// 	va_end(ap);
-// 	return (1);
-// }
