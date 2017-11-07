@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 08:28:53 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 08:33:55 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	string(va_list ap, uint8_t caps, t_options *info)
 	while (length++ < info->min_width)
 		ft_putchar((info->padding) ? '0' : ' ');
 	(info->left ? 0 : ft_unistr(str, info));
-	(void)caps;
 	return (1);
 }
 
@@ -101,14 +100,13 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 	ft_putstr("0x");
 	ft_putstr(*output);
 	(void)info;
-	(void)caps;
 	return (1);
 }
 
 int	octal(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
-	char		*output[21];
+	char		*output[20];
 	void		*save;
 
 	ft_bzero(*output, 20);
