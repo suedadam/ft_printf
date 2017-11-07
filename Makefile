@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/07 05:40:44 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/07 05:52:46 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = libftprintf.a
 
 CFLAGS += -Wall -Werror -Wextra
 
+#I wanna remove ft_memalloc.c
 SRC = ft_printf.c \
 		parse.c \
 		utils.c \
@@ -33,6 +34,7 @@ SRC = ft_printf.c \
 		libft/ft_putnbr_fd.c \
 		libft/ft_putstr_fd.c \
 		libft/ft_putchar_fd.c \
+		libft/ft_memalloc.c \
 
 
 SRC_OBJ = $(subst .c,.o, $(SRC))		

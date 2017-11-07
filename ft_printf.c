@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 03:22:49 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 05:44:34 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 struct	flag_entry	flags[] = {
 	{'#', &altform},
-	{'0', &padded}
+	{'0', &padded},
+	{'-', &left}
 };
 
 struct	entry		conversion[] = {

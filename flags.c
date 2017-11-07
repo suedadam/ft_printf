@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 02:29:22 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 05:57:15 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,17 @@ int	altform(va_list ap, t_options *info)
 
 int	padded(va_list ap, t_options *info)
 {
-	info->padding = 1;
+	if (!info->left)
+		info->padding = 1;
+	(void)ap;
+	return (1);
+}
+
+int	left(va_list ap, t_options *info)
+{
+	if (info->padding)
+		info->padding = 0;
+	info->left = 1;
 	(void)ap;
 	return (1);
 }

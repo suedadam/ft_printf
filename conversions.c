@@ -6,12 +6,12 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 05:40:23 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 05:51:55 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
+
 int	string(va_list ap, uint8_t caps, t_options *info)
 {
 	ft_putstr(va_arg(ap, char *));
@@ -46,9 +46,18 @@ int	integer(va_list ap, uint8_t caps, t_options *info)
 		num = va_arg(ap, int);
 	length = n_length(num);
 	i = info->min_width;
-	while (i-- > length)
-		ft_putchar('0');
-	ft_putnbr(num);
+	if (info->left)
+	{
+		ft_putnbr(num);
+		while (i-- > length)
+			ft_putchar((info->padding) ? '0' : ' ');
+	}
+	else
+	{
+		while (i-- > length)
+			ft_putchar((info->padding) ? '0' : ' ');
+		ft_putnbr(num);
+	}
 	(void)caps;
 	return (1);
 }
@@ -92,16 +101,36 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	return (1);
 }
 
+// /*
+// ** Stack - wtf?
+// */
+// int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
+// {
+// 	uint64_t	hex;
+// 	char		output[20];
+// 	void		*save;
+
+// 	ft_bzero(output, 20);
+// 	hex = va_arg(ap, uint64_t);
+// 	save = output;
+// 	numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
+// 	ft_putstr("0x");
+// 	ft_putstr(save);
+// 	(void)info;
+// 	(void)caps;
+// 	return (1);
+// }
+
 /*
-** Stack - wtf?
+** Heap - Works
 */
 int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
-	char		output[20];
+	char		*output;
 	void		*save;
 
-	ft_bzero(output, 20);
+	output = (char *)ft_memalloc(20 * sizeof(char));
 	hex = va_arg(ap, uint64_t);
 	save = output;
 	numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
@@ -109,31 +138,9 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 	ft_putstr(save);
 	(void)info;
 	(void)caps;
+	free(save);
 	return (1);
 }
-
-/*
-** Heap - Works
-*/
-/*
-	int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
-	{
-		uint64_t	hex;
-		char		*output;
-		void		*save;
-
-		output = (char *)ft_memalloc(20 * sizeof(char));
-		hex = va_arg(ap, uint64_t);
-		save = output;
-		numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
-		ft_putstr("0x");
-		ft_putstr(save);
-		(void)info;
-		(void)caps;
-		free(save);
-		return (1);
-	}
-*/
 
 // int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 // {
