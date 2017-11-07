@@ -39,7 +39,7 @@ int	ft_printf(const char *str, ...)
 	va_start(ap, str);
 	while (*str)
 	{
-		if (*str == '%')
+		if (*str == '%' && *(str + 1) && *(str + 1) != '%')
 		{
 			clearvar(&info);
 			str++;
