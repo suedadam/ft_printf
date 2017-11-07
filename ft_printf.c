@@ -21,7 +21,7 @@ struct	flag_entry	flags[] = {
 struct	entry		conversion[] = {
 	{'s', &string},
 	{'d', &integer},
-	{'u', &integer},
+	{'u', &uinteger},
 	{'c', &charparse},
 	{'x', &hexadec},
 	{'p', &pointeraddr},

@@ -17,6 +17,9 @@
 # include <stdarg.h>
 # include <stdint.h>
 # define CAPS(c) (c >= 'A' && c <= 'Z')
+/* 
+** Build '+' functionality
+*/ 
 # define IS_FLAG(c) (c == '-' || c == '0' || c == '+' || c == ' ' || c == '#')
 # define IS_LMOD(c) (c == 'h' || c == 'l' || c == 'L' || c == 'j' || c == 'z')
 
@@ -58,6 +61,7 @@ int		odd_check(char **str, t_options	*info, va_list ap);
 /* conversions.c */
 
 int	string(va_list ap, uint8_t caps, t_options *info);
+int	uinteger(va_list ap, uint8_t caps, t_options *info);
 int	integer(va_list ap, uint8_t caps, t_options *info);
 int	charparse(va_list ap, uint8_t caps, t_options *info);
 int	hexadec(va_list ap, uint8_t caps, t_options *info);
