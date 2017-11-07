@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 06:54:45 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 07:15:30 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,33 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 // /*
 // ** Stack - wtf?
 // */
+int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
+{
+	uint64_t	hex;
+	char		*output[20];
+	void		*save;
+
+	ft_bzero(*output, 20);
+	hex = va_arg(ap, uint64_t);
+	save = *output;
+	numbase(hex & 0x7fffffffffff, 16, (char **)&save, caps);
+	ft_putstr("0x");
+	ft_putstr(*output);
+	(void)info;
+	(void)caps;
+	return (1);
+}
+
+/*
+** Heap - Works
+*/
 // int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 // {
 // 	uint64_t	hex;
-// 	char		output[20];
+// 	char		*output;
 // 	void		*save;
 
-// 	ft_bzero(output, 20);
+// 	output = (char *)ft_memalloc(20 * sizeof(char));
 // 	hex = va_arg(ap, uint64_t);
 // 	save = output;
 // 	numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
@@ -123,29 +143,9 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 // 	ft_putstr(save);
 // 	(void)info;
 // 	(void)caps;
+// 	free(save);
 // 	return (1);
 // }
-
-/*
-** Heap - Works
-*/
-int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
-{
-	uint64_t	hex;
-	char		*output;
-	void		*save;
-
-	output = (char *)ft_memalloc(20 * sizeof(char));
-	hex = va_arg(ap, uint64_t);
-	save = output;
-	numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
-	ft_putstr("0x");
-	ft_putstr(save);
-	(void)info;
-	(void)caps;
-	free(save);
-	return (1);
-}
 
 // int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 // {
