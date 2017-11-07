@@ -36,7 +36,7 @@ int	integer(va_list ap, uint8_t caps, t_options *info)
 	__int64_t	num;
 	__int64_t	length;
 	int			i;
-
+ 
 	if (info->length == 1)
 		num = (short int)va_arg(ap, int);
 	else if (info->length == 2)
