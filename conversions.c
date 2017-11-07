@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:38:11 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 07:57:18 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	return (1);
 }
 
-// /*
-// ** Stack - wtf?
-// */
 int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
@@ -112,64 +109,6 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 	(void)caps;
 	return (1);
 }
-
-/*
-** Heap - Works
-*/
-// int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
-// {
-// 	uint64_t	hex;
-// 	char		*output;
-// 	void		*save;
-
-// 	output = (char *)ft_memalloc(20 * sizeof(char));
-// 	hex = va_arg(ap, uint64_t);
-// 	save = output;
-// 	numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
-// 	ft_putstr("0x");
-// 	ft_putstr(save);
-// 	(void)info;
-// 	(void)caps;
-// 	free(save);
-// 	return (1);
-// }
-
-// int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
-// {
-// 	// uint64_t	hex;
-// 	char		*output[20];
-// 	// void		*save;
-
-// 	ft_putstr("POS\n");
-// 	int i;
-// 	i = 0;
-// 	while (i < 20)
-// 	{
-// 		printf("output[%d] = %c\n", i, (*output)[i]);
-// 		i++;
-// 	}
-// 	// printf("output = %p *output = %p\n", output, *output);
-// 	ft_bzero(*output, 20);
-// 	ft_putstr("bullshit\n");
-
-
-// 	// size_t	hex;
-// 	// char	*output[20];
-// 	// void	*save;
-
-// 	// write(1, "c\n", 2);
-// 	// ft_bzero(*output, 20);
-// 	// hex = va_arg(ap, size_t);
-// 	// save = *output;
-// 	// numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
-// 	// *output = save;
-// 	// ft_putstr("0x");
-// 	// ft_putstr(*output);
-// 	(void)info;
-// 	(void)caps;
-// 	(void)ap;
-// 	return (1);
-// }
 
 int	octal(va_list ap, uint8_t caps, t_options *info)
 {
