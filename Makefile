@@ -1,10 +1,27 @@
-#Fix this shit pls
-NAME = fillit
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
+#    Updated: 2017/11/07 01:10:20 by asyed            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# CFLAGS += -Wall -Wextra -Werror
+NAME = libftprintf.a
+
+CFLAGS += -Wall -Werror -Wextra
 CFLAGS += -I libft/
 
-SRC = ft_printf.c
+SRC = ft_printf.c \
+		parse.c \
+		utils.c \
+		conversions.c \
+		flags.c \
+
+SRC_OBJ = $(subst .c,.o, $(SRC))		
 
 LIBFT = libft/libft.a
 
@@ -12,19 +29,18 @@ LIBFT = libft/libft.a
 
 all: $(NAME)
 
-$(LIBFT):
-	@make -C libft
+%.o: %.c \
+	@gcc $(CFLAGS) -c $? -o $@
 
-$(NAME): $(LIBFT)
-	@gcc -c $(SRC) $(CFLAGS)
-	@ar rc printf.a ft_printf.o
-	@ranlib printf.a
+$(NAME): $(SRC_OBJ)
+	@/bin/rm -f $(NAME)
+	@ar rcs $(NAME) $(SRC_OBJ)
+	@ranlib $(NAME)
 
 
 clean:
 	@make -C libft clean
-	@rm -f *.o
-	@rm -f *.a
+	@rm -f $(SRC_OBJ)
 	@echo "\033[32mRemoved Object Files\033[0m"
 
 fclean: clean
