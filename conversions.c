@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 08:33:55 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 08:42:47 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	if (info->altform && ft_strcmp(*output, "0"))
 		ft_putstr("0X");
 	ft_putstr(*output);
-	(void)info;
 	return (1);
 }
 
@@ -94,12 +93,12 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 	void		*save;
 
 	ft_bzero(*output, 20);
-	hex = va_arg(ap, uint64_t);
+	hex = numfetch(ap, info);
 	save = *output;
-	numbase(hex & 0x7fffffffffff, 16, (char **)&save, caps);
-	ft_putstr("0x");
+	numbase(hex, 16, (char **)&output, caps);
+	*output = save;
+	ft_putstr("0x7fff");
 	ft_putstr(*output);
-	(void)info;
 	return (1);
 }
 
