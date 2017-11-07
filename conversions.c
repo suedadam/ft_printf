@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:15:30 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 07:38:11 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,7 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	void		*save;
 
 	ft_bzero(*output, 20);
-	if (info->length == 1)
-		hex = (unsigned short int)va_arg(ap, int);
-	else if (info->length == 2)
-		hex = (unsigned char)va_arg(ap, int);
-	else if (info->length == 3)
-		hex = va_arg(ap, unsigned long int);
-	else if (info->length == 4)
-		hex = va_arg(ap, unsigned long long int);
-	else if (info->length == 5)
-		hex = va_arg(ap, uintmax_t);
-	else if (info->length == 6)
-		hex = va_arg(ap, ssize_t);
-	else
-		hex = va_arg(ap, unsigned int);
+	hex = numfetch(ap, info);
 	save = *output;
 	numbase(hex, 16, (char **)&output, caps);
 	*output = save;
@@ -191,20 +178,7 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	void		*save;
 
 	ft_bzero(*output, 20);
-	if (info->length == 1)
-		hex = (unsigned short int)va_arg(ap, int);
-	else if (info->length == 2)
-		hex = (unsigned char)va_arg(ap, int);
-	else if (info->length == 3)
-		hex = va_arg(ap, unsigned long int);
-	else if (info->length == 4)
-		hex = va_arg(ap, unsigned long long int);
-	else if (info->length == 5)
-		hex = va_arg(ap, uintmax_t);
-	else if (info->length == 6)
-		hex = va_arg(ap, ssize_t);
-	else
-		hex = va_arg(ap, unsigned int);
+	hex = numfetch(ap, info);
 	save = *output;
 	numbase(hex, 8, (char **)&output, caps);
 	*output = save;

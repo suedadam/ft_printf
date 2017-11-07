@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 06:51:49 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 07:38:25 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ typedef	struct 		s_options
 int		ft_printf(const char *str, ...);
 
 /* flags.c */
-int		altform(va_list ap, t_options *info);
-int		padded(va_list ap, t_options *info);
-int		left(va_list ap, t_options *info);
+int			altform(va_list ap, t_options *info);
+int			padded(va_list ap, t_options *info);
+int			left(va_list ap, t_options *info);
+uint64_t	numfetch(va_list ap, t_options *info);
 
 /* parse.c */
 void	flag_parse(char **str, t_options *info, va_list ap);
