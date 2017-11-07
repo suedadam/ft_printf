@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 00:58:23 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 02:31:47 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	numbase(size_t dec, int base, char **output, uint8_t caps)
 
 void	clearvar(t_options *info)
 {
-	info->caps = 0;
 	info->altform = 0;
 	info->padding = 0;
 	info->neg = 0;
