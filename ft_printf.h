@@ -66,7 +66,7 @@ int	octal(va_list ap, uint8_t caps, t_options *info);
 /* utils.c */
 size_t	n_length(size_t n);
 void	ft_unichar(int c, t_options *info);
-void	numbase(size_t dec, int base, char **output, uint8_t caps);
+char	*numbase(size_t dec, int base, uint8_t caps, int *i);
 void	clearvar(t_options *info);
 void	ft_unistr(int *str, t_options *info);
 

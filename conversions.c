@@ -72,49 +72,43 @@ int	charparse(va_list ap, uint8_t caps, t_options *info)
 int	hexadec(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
-	char		*output[20];
-	void		*save;
+	char		*save;
+	int			i;
 
-	ft_bzero(*output, 20);
+	i = 0;
 	hex = numfetch(ap, info);
-	save = *output;
-	numbase(hex, 16, (char **)&output, caps);
-	*output = save;
-	if (info->altform && ft_strcmp(*output, "0"))
+	save = numbase(hex, 16, caps, &i);
+	if (info->altform && ft_strcmp(save, "0"))
 		ft_putstr("0X");
-	ft_putstr(*output);
+	ft_putstr(save);
 	return (1);
 }
 
 int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
-	char		*output[20];
-	void		*save;
+	char		*save;
+	int			i;
 
-	ft_bzero(*output, 20);
+	i = 0;
 	hex = numfetch(ap, info);
-	save = *output;
-	numbase(hex, 16, (char **)&output, caps);
-	*output = save;
+	save = numbase(hex, 16, caps, &i);
 	ft_putstr("0x7fff");
-	ft_putstr(*output);
+	ft_putstr(save);
 	return (1);
 }
 
 int	octal(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
-	char		*output[20];
-	void		*save;
+	char		*save;
+	int			i;
 
-	ft_bzero(*output, 20);
+	i = 0;
 	hex = numfetch(ap, info);
-	save = *output;
-	numbase(hex, 8, (char **)&output, caps);
-	*output = save;
+	save = numbase(hex, 8, caps, &i);
 	if (info->altform)
 		ft_putstr("0X");
-	ft_putstr(*output);
+	ft_putstr(save);
 	return (1);
 }

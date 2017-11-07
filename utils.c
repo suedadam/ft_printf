@@ -62,16 +62,19 @@ void	ft_unichar(int c, t_options *info)
 	}
 }
 
-void	numbase(size_t dec, int base, char **output, uint8_t caps)
+char	*numbase(size_t dec, int base, uint8_t caps, int *i)
 {
+	static	char	buffer[20];
+
 	if (!dec)
-		return ;
-	numbase(dec / base, base, output, caps);
+		return (NULL);
+	numbase(dec / base, base, caps, i);
 	if (caps)
-		**output = "0123456789ABCDEF"[dec % base];
+		buffer[*i] = "0123456789ABCDEF"[dec % base];
 	else
-		**output = "0123456789abcdef"[dec % base];
-	(*output)++;
+		buffer[*i] = "0123456789abcdef"[dec % base];
+	(*i)++;
+	return (buffer);
 }
 
 void	clearvar(t_options *info)
