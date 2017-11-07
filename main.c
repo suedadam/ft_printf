@@ -6,12 +6,12 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:30:39 by asyed             #+#    #+#             */
-/*   Updated: 2017/10/25 13:56:49 by asyed            ###   ########.fr       */
+/*   Updated: 2017/10/25 14:32:50 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <stdlib.h>
 #include "ft_printf.h"
 
 static char *rand_string(char *str, size_t size)
@@ -61,6 +61,9 @@ main(int argc, char *argv[])
 	printf("%d\n", i);
 	ft_printf("%D = ", i);
 	printf("%D\n", i);
+	printf("\n===0d (\"010\")===\n");
+	ft_printf("%0d = ", 010);
+	printf("%0d\n", 010);
 	printf("\n===i===\n");
 	ft_printf("%i = ", i);
 	printf("%i\n", i);
@@ -72,19 +75,28 @@ main(int argc, char *argv[])
 	printf("%o\n", i);
 	ft_printf("%O = ", i);
 	printf("%O\n", i);
+	printf("\n===020d===\n");
+	ft_printf("%020d = ", i);
+	printf("%020d\n", i);
+	printf("\n===.20d===\n");
+	ft_printf("%.20d = ", i);
+	printf("%.20d\n", i);
+	printf("\n===d (-30)===\n");
+	ft_printf("%-d = ", -2147483650);
+	printf("%-d\n", -2147483650);
 
 	// if (argc >= 2)
 	// {
 	// 	ft_printf(argv[1]);
 	// }
-	// ft_printf("\n");
-	// ft_printf("%s and c = %c", "hi", 'h');
+	// // ft_printf("\n");
+	// // ft_printf("%s and c = %c", "hi", 'h');
 
-	ft_printf("str \"%s\" num \"%d\" and char \"%c\" and pointer \"%p\" and hex = \"%X\"\n", hello, 1, hello[0], &i, i);
-	printf("[Official] = \"%X\"\n", i);
-	printf("================\n");
-	// printf("%%\n");
-	printf("%'.2f", 1234567.89);
+	// ft_printf("str \"%s\" num \"%d\" and char \"%c\" and pointer \"%p\" and hex = \"%X\"\n", hello, 1, hello[0], &i, i);
+	// printf("[Official] = \"%X\"\n", i);
+	// printf("================\n");
+	// // printf("%%\n");
+	// printf("%'.2f", 1234567.89);
 	// numbase(12, 10);
 	// ft_printf("%d\n", 1);
 	return (1);
