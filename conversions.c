@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:57:18 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 08:28:53 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,20 @@
 */
 int	string(va_list ap, uint8_t caps, t_options *info)
 {
-	if (info->length == 3 || caps)
-		ft_unistr(va_arg(ap, wchar_t *), info);
-	else
-		ft_putstr(va_arg(ap, char *));
+	int 	length;
+	wchar_t	*str;
+
+	str = va_arg(ap, wchar_t *);
+	length = ft_strlen((char *)str);
+	if (caps)
+		info->length = 3;
+	(info->left ? ft_unistr(str, info) : 0);
+	while (length++ < info->min_width)
+		ft_putchar((info->padding) ? '0' : ' ');
+	(info->left ? 0 : ft_unistr(str, info));
 	(void)caps;
 	return (1);
 }
-
-/*
-** Need to handle length modifiers.
-*/
 
 int	integer(va_list ap, uint8_t caps, t_options *info)
 {
@@ -51,18 +54,10 @@ int	integer(va_list ap, uint8_t caps, t_options *info)
 		num = va_arg(ap, int);
 	length = n_length(num);
 	i = info->min_width;
-	if (info->left)
-	{
-		ft_putnbr(num);
-		while (i-- > length)
-			ft_putchar((info->padding) ? '0' : ' ');
-	}
-	else
-	{
-		while (i-- > length)
-			ft_putchar((info->padding) ? '0' : ' ');
-		ft_putnbr(num);
-	}
+	(info->left ? ft_putnbr(num) : 0);
+	while (i-- > length)
+		ft_putchar((info->padding) ? '0' : ' ');
+	(info->left ? 0 : ft_putnbr(num));
 	(void)caps;
 	return (1);
 }

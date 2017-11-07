@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:19:36 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 08:29:54 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,18 @@ size_t	n_length(size_t n)
 
 void	ft_unistr(int *str, t_options *info)
 {
-	while (*str)
-		ft_unichar(*str++, info);
+	if (info->length == 3)
+		while (*str)
+			ft_unichar(*str++, info);
+	else
+		ft_putstr((char *)str);
 }
 
 void	ft_unichar(int c, t_options *info)
 {
 	if (c < 0x80 || info->length != 3)
-	{
-		// printf("Char = %c\n", c);
 		ft_putchar(c);
-		return ;
-	}
-	if (info->length == 3)
+	else if (info->length == 3)
 	{
 		if (c < 0x800)
 		{

@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/07 07:15:59 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/07 08:15:31 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC = ft_printf.c \
 		libft/ft_putnbr_fd.c \
 		libft/ft_putstr_fd.c \
 		libft/ft_putchar_fd.c \
+		libft/ft_strlen.c \
 
 
 SRC_OBJ = $(subst .c,.o, $(SRC))		
