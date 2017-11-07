@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:38:25 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 07:45:57 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdint.h>
 # define CAPS(c) (c >= 'A' && c <= 'Z')
 # define IS_FLAG(c) (c == '-' || c == '0' || c == '+' || c == ' ' || c == '#')
-# define IS_LMOD(c) (c == 'h' || c == 'l' || c == 'L' || c == 'q' || c == 'j' || c == 'z' || c == 't')
+# define IS_LMOD(c) (c == 'h' || c == 'l' || c == 'L' || c == 'j' || c == 'z')
 
 /*
 ** Length code chart:
