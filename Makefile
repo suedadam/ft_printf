@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/07 04:45:14 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/07 05:40:44 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LIBFT = libft/libft.a
 all: $(NAME)
 
 %.o: %.c \
-	@gcc $(CFLAGS) -g -c $? -o $@
+	@gcc $(CFLAGS) -c $? -o $@
 
 $(NAME): $(SRC_OBJ)
 	@/bin/rm -f $(NAME)
