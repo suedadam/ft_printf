@@ -107,8 +107,8 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	i = 0;
 	hex = numfetch(ap, info);
 	save = numbase(hex, 8, caps, &i);
-	if (info->altform)
-		ft_putstr("0X");
+	if (info->altform && save[0] != '0')
+		ft_putchar('0');
 	ft_putstr(save);
 	return (1);
 }
