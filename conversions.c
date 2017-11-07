@@ -53,10 +53,10 @@ int	uinteger(va_list ap, uint8_t caps, t_options *info)
 		num = va_arg(ap, unsigned int);
 	length = n_length(num);
 	i = info->min_width;
-	(info->left ? ft_putnbr(num) : 0);
+	(info->left ? ft_uputnbr(num) : 0);
 	while ((__uint64_t)i-- > length)
 		ft_putchar((info->padding) ? '0' : ' ');
-	(info->left ? 0 : ft_putnbr(num));
+	(info->left ? 0 : ft_uputnbr(num));
 	(void)caps;
 	return (1);
 }

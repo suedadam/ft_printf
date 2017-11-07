@@ -54,6 +54,8 @@ void			ft_putendl(char const *s);
 void			ft_putendl_fd(char const *s, int fd);
 void			ft_putnbr(__int64_t n);
 void			ft_putnbr_fd(__int64_t n, int fd);
+void			ft_uputnbr(__uint64_t n);
+void			ft_uputnbr_fd(__uint64_t n, int fd);
 void			ft_putstr(char const *s);
 void			ft_putstr_fd(char const *s, int fd);
 char			*ft_strcat(char *dest, const char *src);

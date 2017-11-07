@@ -34,6 +34,8 @@ SRC = ft_printf.c \
 		libft/ft_putstr_fd.c \
 		libft/ft_putchar_fd.c \
 		libft/ft_strlen.c \
+		libft/ft_uputnbr_fd.c \
+		libft/ft_uputnbr.c \
 
 
 SRC_OBJ = $(subst .c,.o, $(SRC))		

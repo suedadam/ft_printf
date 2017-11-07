@@ -102,7 +102,6 @@ void	l_modifier(char **str, t_options *info, va_list ap)
 			info->length = 6;
 			(*str)++;
 		}
-
 	}
 	(void)ap;
 }
@@ -115,8 +114,9 @@ int		odd_check(char **str, t_options	*info, va_list ap)
 		(*str)++;
 		return (1);
 	}
-	else if (**str == 'u')
-		info->length = 6;
+	// else if (**str == 'u')
+	// 	info->length = 6;
 	(void)ap;
+	(void)info;
 	return (0);
 }
