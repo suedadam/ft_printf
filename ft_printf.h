@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 02:39:20 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 03:54:43 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,25 @@
 # include <stdint.h>
 # define CAPS(c) (c >= 'A' && c <= 'Z')
 # define IS_FLAG(c) (c == '-' || c == '0' || c == '+' || c == ' ' || c == '#')
+# define IS_LMOD(c) (c == 'h' || c == 'l' || c == 'L' || c == 'q' || c == 'j' || c == 'z' || c == 't')
+
+/*
+** Length code chart:
+** 0 = unset
+** 1 = h (short int/unsigned short int)
+** 2 = hh (signed char/unsigned char)
+** 3 = l (long int/unsigned long int)
+** 4 = ll (long long int/unsigned long long int)
+** 5 = j (intmax_t/uintmax_t)
+** 6 = z (size_t/ssize_t)
+*/
 
 typedef	struct 		s_options
 {
 	uint8_t			altform:1,padding:1,neg:1,space:1,sign:1;
 	int				min_width;
-	int				percision;	
+	int				percision;
+	int				length;
 }					t_options;
 
 /* ft_printf.c */
@@ -37,6 +50,7 @@ int		padded(va_list ap, t_options *info);
 void	flag_parse(char **str, t_options *info, va_list ap);
 void	min_width(char **str, t_options *info, va_list ap);
 void	percision(char **str, t_options *info, va_list ap);
+void	l_modifier(char **str, t_options *info, va_list ap);
 
 /* conversions.c */
 
@@ -49,7 +63,7 @@ int	octal(va_list ap, uint8_t caps, t_options *info);
 
 /* utils.c */
 size_t	n_length(size_t n);
-void	ft_unichar(int c);
+void	ft_unichar(int c, t_options *info);
 void	numbase(size_t dec, int base, char **output, uint8_t caps);
 void	clearvar(t_options *info);
 

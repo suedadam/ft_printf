@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 00:51:43 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 03:22:49 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ struct	entry		conversion[] = {
 	{'p', &pointeraddr},
 	{'i', &integer},
 	{'o', &octal},
+	{'%', &charparse},
 	{0, NULL}
 };
 
@@ -45,6 +46,7 @@ int	ft_printf(const char *str, ...)
 			flag_parse((char **)&str, &info, ap);
 			min_width((char **)&str, &info, ap);
 			percision((char **)&str, &info, ap);
+			l_modifier((char **)&str, &info, ap);
 			i = 0;
 			while (conversion[i].command)
 			{

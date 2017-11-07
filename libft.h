@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 11:27:49 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 02:40:24 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 04:35:27 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putendl(char const *s);
 void			ft_putendl_fd(char const *s, int fd);
-void			ft_putnbr(int n);
-void			ft_putnbr_fd(int n, int fd);
+void			ft_putnbr(__int64_t n);
+void			ft_putnbr_fd(__int64_t n, int fd);
 void			ft_putstr(char const *s);
 void			ft_putstr_fd(char const *s, int fd);
 char			*ft_strcat(char *dest, const char *src);

@@ -6,11 +6,12 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 02:31:47 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 03:55:31 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
+#include <stdio.h>
 #include "ft_printf.h"
 
 size_t	n_length(size_t n)
@@ -26,27 +27,34 @@ size_t	n_length(size_t n)
 	return (i);
 }
 
-void	ft_unichar(int c)
+void	ft_unichar(int c, t_options *info)
 {
-	if (c < 0x80)
+	if (c < 0x80 || info->length != 3)
+	{
+		// printf("Char = %c\n", c);
 		ft_putchar(c);
-	else if (c < 0x800)
-	{
-		ft_putchar(0xC0 | (c >> 6));
-		ft_putchar(0x80 | (c & 0x3F));
+		return ;
 	}
-	else if (c < 0x10000)
+	if (info->length == 3)
 	{
-		ft_putchar(0xE0 | (c >> 12));
-		ft_putchar(0x80 | (c >> 6 & 0x3F));
-		ft_putchar(0x80 | (c & 0x3F));
-	}
-	else if (c < 0x200000)
-	{
-		ft_putchar(0xF0 | (c >> 18));
-		ft_putchar(0x80 | (c >> 12 & 0x3F));
-		ft_putchar(0x80 | (c >> 6 & 0x3F));
-		ft_putchar(0x80 | (c & 0x3F));
+		if (c < 0x800)
+		{
+			ft_putchar(0xC0 | (c >> 6));
+			ft_putchar(0x80 | (c & 0x3F));
+		}
+		else if (c < 0x10000)
+		{
+			ft_putchar(0xE0 | (c >> 12));
+			ft_putchar(0x80 | (c >> 6 & 0x3F));
+			ft_putchar(0x80 | (c & 0x3F));
+		}
+		else if (c < 0x200000)
+		{
+			ft_putchar(0xF0 | (c >> 18));
+			ft_putchar(0x80 | (c >> 12 & 0x3F));
+			ft_putchar(0x80 | (c >> 6 & 0x3F));
+			ft_putchar(0x80 | (c & 0x3F));
+		}
 	}
 }
 
@@ -71,4 +79,5 @@ void	clearvar(t_options *info)
 	info->sign = 0;
 	info->min_width = 0;
 	info->percision = 0;
+	info->length = 0;
 }

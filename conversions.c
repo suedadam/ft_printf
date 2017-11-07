@@ -6,12 +6,12 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 02:29:05 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 05:40:23 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>
 int	string(va_list ap, uint8_t caps, t_options *info)
 {
 	ft_putstr(va_arg(ap, char *));
@@ -26,37 +26,62 @@ int	string(va_list ap, uint8_t caps, t_options *info)
 
 int	integer(va_list ap, uint8_t caps, t_options *info)
 {
-	long	num;
-	long	length;
-	int		i;
+	__int64_t	num;
+	__int64_t	length;
+	int			i;
 
-	num = va_arg(ap, long);
+	if (info->length == 1)
+		num = (short int)va_arg(ap, int);
+	else if (info->length == 2)
+		num = (char)va_arg(ap, int);
+	else if (info->length == 3)
+		num = va_arg(ap, long int);
+	else if (info->length == 4)
+		num = va_arg(ap, long long int);
+	else if (info->length == 5)
+		num = va_arg(ap, intmax_t);
+	else if (info->length == 6)
+		num = va_arg(ap, size_t);
+	else
+		num = va_arg(ap, int);
 	length = n_length(num);
 	i = info->min_width;
 	while (i-- > length)
 		ft_putchar('0');
 	ft_putnbr(num);
-	(void)info;
 	(void)caps;
 	return (1);
 }
 
 int	charparse(va_list ap, uint8_t caps, t_options *info)
 {
-	ft_unichar(va_arg(ap, int));
-	(void)info;
-	(void)caps;
+	if (caps)
+		info->length = 3;
+	ft_unichar(va_arg(ap, int), info);
 	return (1);
 }
 
 int	hexadec(va_list ap, uint8_t caps, t_options *info)
 {
-	size_t	hex;
-	char	*output[20];
-	void	*save;
+	uint64_t	hex;
+	char		*output[20];
+	void		*save;
 
 	ft_bzero(*output, 20);
-	hex = va_arg(ap, size_t);
+	if (info->length == 1)
+		hex = (unsigned short int)va_arg(ap, int);
+	else if (info->length == 2)
+		hex = (unsigned char)va_arg(ap, int);
+	else if (info->length == 3)
+		hex = va_arg(ap, unsigned long int);
+	else if (info->length == 4)
+		hex = va_arg(ap, unsigned long long int);
+	else if (info->length == 5)
+		hex = va_arg(ap, uintmax_t);
+	else if (info->length == 6)
+		hex = va_arg(ap, ssize_t);
+	else
+		hex = va_arg(ap, unsigned int);
 	save = *output;
 	numbase(hex, 16, (char **)&output, caps);
 	*output = save;
@@ -67,31 +92,107 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	return (1);
 }
 
+/*
+** Stack - wtf?
+*/
 int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 {
-	size_t	hex;
-	char	*output[20];
-	void	*save;
+	uint64_t	hex;
+	char		output[20];
+	void		*save;
 
-	ft_bzero(*output, 20);
-	hex = va_arg(ap, size_t);
-	save = *output;
+	ft_bzero(output, 20);
+	hex = va_arg(ap, uint64_t);
+	save = output;
 	numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
-	*output = save;
 	ft_putstr("0x");
-	ft_putstr(*output);
+	ft_putstr(save);
 	(void)info;
+	(void)caps;
 	return (1);
 }
 
+/*
+** Heap - Works
+*/
+/*
+	int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
+	{
+		uint64_t	hex;
+		char		*output;
+		void		*save;
+
+		output = (char *)ft_memalloc(20 * sizeof(char));
+		hex = va_arg(ap, uint64_t);
+		save = output;
+		numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
+		ft_putstr("0x");
+		ft_putstr(save);
+		(void)info;
+		(void)caps;
+		free(save);
+		return (1);
+	}
+*/
+
+// int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
+// {
+// 	// uint64_t	hex;
+// 	char		*output[20];
+// 	// void		*save;
+
+// 	ft_putstr("POS\n");
+// 	int i;
+// 	i = 0;
+// 	while (i < 20)
+// 	{
+// 		printf("output[%d] = %c\n", i, (*output)[i]);
+// 		i++;
+// 	}
+// 	// printf("output = %p *output = %p\n", output, *output);
+// 	ft_bzero(*output, 20);
+// 	ft_putstr("bullshit\n");
+
+
+// 	// size_t	hex;
+// 	// char	*output[20];
+// 	// void	*save;
+
+// 	// write(1, "c\n", 2);
+// 	// ft_bzero(*output, 20);
+// 	// hex = va_arg(ap, size_t);
+// 	// save = *output;
+// 	// numbase(hex & 0x7fffffffffff, 16, (char **)&output, caps);
+// 	// *output = save;
+// 	// ft_putstr("0x");
+// 	// ft_putstr(*output);
+// 	(void)info;
+// 	(void)caps;
+// 	(void)ap;
+// 	return (1);
+// }
+
 int	octal(va_list ap, uint8_t caps, t_options *info)
 {
-	size_t	hex;
-	char	*output[20];
-	void	*save;
+	uint64_t	hex;
+	char		*output[21];
+	void		*save;
 
 	ft_bzero(*output, 20);
-	hex = va_arg(ap, size_t);
+	if (info->length == 1)
+		hex = (unsigned short int)va_arg(ap, int);
+	else if (info->length == 2)
+		hex = (unsigned char)va_arg(ap, int);
+	else if (info->length == 3)
+		hex = va_arg(ap, unsigned long int);
+	else if (info->length == 4)
+		hex = va_arg(ap, unsigned long long int);
+	else if (info->length == 5)
+		hex = va_arg(ap, uintmax_t);
+	else if (info->length == 6)
+		hex = va_arg(ap, ssize_t);
+	else
+		hex = va_arg(ap, unsigned int);
 	save = *output;
 	numbase(hex, 8, (char **)&output, caps);
 	*output = save;

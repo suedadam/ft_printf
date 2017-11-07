@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.us.org>            +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/22 00:08:55 by asyed             #+#    #+#             */
-/*   Updated: 2017/09/22 09:59:11 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 04:35:17 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(__int64_t n, int fd)
 {
-	if (n == -2147483648)
+	if (n == -9223372036854775807 - 1)
 	{
-		ft_putstr_fd("-2147483648", fd);
+		ft_putstr_fd("-9223372036854775808", fd);
 		return ;
 	}
 	if (n < 0)
