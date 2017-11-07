@@ -67,6 +67,8 @@ char	*numbase(size_t dec, int base, uint8_t caps, int *i)
 {
 	static	char	buffer[20];
 
+	if (!*i)
+		ft_bzero(buffer, 20);
 	if (!dec)
 		return (NULL);
 	numbase(dec / base, base, caps, i);
