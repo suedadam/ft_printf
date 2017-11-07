@@ -53,6 +53,7 @@ void	flag_parse(char **str, t_options *info, va_list ap);
 void	min_width(char **str, t_options *info, va_list ap);
 void	percision(char **str, t_options *info, va_list ap);
 void	l_modifier(char **str, t_options *info, va_list ap);
+int		odd_check(char **str, t_options	*info, va_list ap);
 
 /* conversions.c */
 

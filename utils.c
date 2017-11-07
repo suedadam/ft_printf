@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdarg.h>
+#include <stdio.h>
 #include "ft_printf.h"
 
 size_t	n_length(size_t n)

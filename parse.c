@@ -106,3 +106,17 @@ void	l_modifier(char **str, t_options *info, va_list ap)
 	}
 	(void)ap;
 }
+
+int		odd_check(char **str, t_options	*info, va_list ap)
+{
+	if (**str == '%')
+	{
+		ft_putchar(**str);
+		(*str)++;
+		return (1);
+	}
+	else if (**str == 'u')
+		info->length = 6;
+	(void)ap;
+	return (0);
+}

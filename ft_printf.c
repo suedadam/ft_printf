@@ -21,12 +21,12 @@ struct	flag_entry	flags[] = {
 struct	entry		conversion[] = {
 	{'s', &string},
 	{'d', &integer},
+	{'u', &integer},
 	{'c', &charparse},
 	{'x', &hexadec},
 	{'p', &pointeraddr},
 	{'i', &integer},
 	{'o', &octal},
-	{'%', &charparse},
 	{0, NULL}
 };
 
@@ -39,7 +39,7 @@ int	ft_printf(const char *str, ...)
 	va_start(ap, str);
 	while (*str)
 	{
-		if (*str == '%' && *(str + 1) && *(str + 1) != '%')
+		if (*str == '%')
 		{
 			clearvar(&info);
 			str++;
@@ -47,6 +47,8 @@ int	ft_printf(const char *str, ...)
 			min_width((char **)&str, &info, ap);
 			percision((char **)&str, &info, ap);
 			l_modifier((char **)&str, &info, ap);
+			if (odd_check((char **)&str, &info, ap))
+				continue ;
 			i = 0;
 			while (conversion[i].command)
 			{
