@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 03:55:31 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 06:51:29 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ size_t	n_length(size_t n)
 		n /= 10;
 	}
 	return (i);
+}
+
+void	ft_unistr(int *str, t_options *info)
+{
+	while (*str)
+		ft_unichar(*str++, info);
 }
 
 void	ft_unichar(int c, t_options *info)

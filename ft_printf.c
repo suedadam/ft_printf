@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 05:44:34 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 06:27:43 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_printf(const char *str, ...)
 	{
 		if (*str == '%')
 		{
-			// info = (t_options) { 0 };
 			clearvar(&info);
 			str++;
 			flag_parse((char **)&str, &info, ap);

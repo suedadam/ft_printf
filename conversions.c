@@ -6,16 +6,21 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 05:51:55 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 06:54:45 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/*
+** This could very well be useless
+*/
 int	string(va_list ap, uint8_t caps, t_options *info)
 {
-	ft_putstr(va_arg(ap, char *));
-	(void)info;
+	if (info->length == 3 || caps)
+		ft_unistr(va_arg(ap, wchar_t *), info);
+	else
+		ft_putstr(va_arg(ap, char *));
 	(void)caps;
 	return (1);
 }

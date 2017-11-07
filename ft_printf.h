@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 05:45:22 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 06:51:49 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ size_t	n_length(size_t n);
 void	ft_unichar(int c, t_options *info);
 void	numbase(size_t dec, int base, char **output, uint8_t caps);
 void	clearvar(t_options *info);
+void	ft_unistr(int *str, t_options *info);
 
 struct 	entry {
 	char	command;
