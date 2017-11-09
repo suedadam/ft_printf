@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 08:42:47 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/08 18:34:15 by suedadam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,8 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 
 int	octal(va_list ap, uint8_t caps, t_options *info)
 {
-	uint64_t	hex;
+	__uint64_t	hex;
+	__uint64_t	length;
 	char		*save;
 	int			i;
 
@@ -142,6 +143,11 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	save = numbase(hex, 8, caps, &i);
 	if (info->altform && save[0] != '0')
 		ft_putchar('0');
-	ft_putstr(save);
+	length = ft_strlen(save);
+	i = info->min_width;
+	(info->left ? ft_putstr(save) : 0);
+	while ((__uint64_t)i-- > length)
+		ft_putchar((info->padding) ? '0' : ' ');
+	(info->left ? 0 : ft_putstr(save));
 	return (1);
 }
