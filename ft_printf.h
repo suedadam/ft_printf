@@ -69,7 +69,7 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info);
 int	octal(va_list ap, uint8_t caps, t_options *info);
 
 /* utils.c */
-size_t	n_length(size_t n);
+size_t	n_length(__int64_t n);
 void	ft_unichar(int c, t_options *info);
 char	*numbase(size_t dec, int base, uint8_t caps, int *i);
 void	clearvar(t_options *info);

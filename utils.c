@@ -14,11 +14,17 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
-size_t	n_length(size_t n)
+size_t	n_length(__int64_t n)
 {
 	size_t	i;
 
 	i = 0;
+
+	if (n < 0)
+	{
+		i++;
+		n = -n;
+	}
 	while (n)
 	{
 		i++;
