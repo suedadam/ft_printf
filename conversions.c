@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+#include <stdio.h>
 /*
 ** This could very well be useless
 */
