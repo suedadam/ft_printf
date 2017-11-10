@@ -20,7 +20,8 @@
 /* 
 ** Build '+' functionality
 */ 
-# define IS_FLAG(c) (c == '-' || c == '0' || c == '+' || c == ' ' || c == '#')
+# define IS_FLAG(c) (c == '-' || c == '0' || c == '+' || c == ' ' || c == '#'\
+					|| c == '^')
 # define IS_LMOD(c) (c == 'h' || c == 'l' || c == 'L' || c == 'j' || c == 'z')
 
 /*
@@ -36,7 +37,7 @@
 
 typedef	struct 		s_options
 {
-	uint8_t			altform:1,padding:1,neg:1,space:1,sign:1,left:1;
+	uint8_t			altform:1,padding:1,neg:1,space:1,sign:1,left:1,special:1;
 	int				min_width;
 	int				percision;
 	int				length;
@@ -50,6 +51,7 @@ int			altform(va_list ap, t_options *info, char **str);
 int			padded(va_list ap, t_options *info, char **str);
 int			left(va_list ap, t_options *info, char **str);
 int			space(va_list ap, t_options *info, char **str);
+int			special(va_list ap, t_options *info, char **str);
 uint64_t	numfetch(va_list ap, t_options *info);
 
 /* parse.c */

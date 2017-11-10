@@ -30,6 +30,14 @@ int			padded(va_list ap, t_options *info, char **str)
 	return (1);
 }
 
+int			special(va_list ap, t_options *info, char **str)
+{
+	info->special = 1;
+	(void)ap;
+	(void)str;
+	return (1);
+}
+
 int			left(va_list ap, t_options *info, char **str)
 {
 	if (info->padding)

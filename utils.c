@@ -96,4 +96,5 @@ void	clearvar(t_options *info)
 	info->min_width = 0;
 	info->percision = 0;
 	info->length = 0;
+	info->special = 0;
 }

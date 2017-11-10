@@ -102,7 +102,10 @@ int	charparse(va_list ap, uint8_t caps, t_options *info)
 {
 	if (caps)
 		info->length = 3;
-	ft_putchar((unsigned char)va_arg(ap, wchar_t));
+	if (info->special)
+		ft_unichar(va_arg(ap, wchar_t), info);
+	else
+		ft_putchar((unsigned char)va_arg(ap, wchar_t));
 	return (1);
 }
 
