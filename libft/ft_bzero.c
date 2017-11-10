@@ -16,19 +16,7 @@ void	ft_bzero(void *s, size_t n)
 {
 	char	*d;
 
-	if (!(n % 4))
-	{
-		d = s;
-		while (n -= 4)
-		{
-			*(int *)d &= 0;
-			d += 4;
-		}
-	}
-	else
-	{
-		d = (char *)s;
-		while (n--)
-			*(d++) &= 0;
-	}
+	d = (char *)s;
+	while (n--)
+		*(d++) &= 0;
 }

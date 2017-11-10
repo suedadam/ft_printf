@@ -12,7 +12,11 @@
 
 #include "ft_printf.h"
 
-#include <stdio.h>
+/*
+** Modify all functions to handle 0 as a valid parameter without seg faulting!
+*/
+
+// #include <stdio.h>
 /*
 ** This could very well be useless
 */
@@ -64,10 +68,12 @@ int	uinteger(va_list ap, uint8_t caps, t_options *info)
 
 int	integer(va_list ap, uint8_t caps, t_options *info)
 {
-	__int64_t	num;
+	intmax_t	num;
 	__int64_t	length;
 	int			i;
  
+ 	if (caps)
+ 		info->length = 3;
 	if (info->length == 1)
 		num = (short int)va_arg(ap, int);
 	else if (info->length == 2)
@@ -105,34 +111,39 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	uint64_t	hex;
 	char		*save;
 	int			i;
+	int			length;
 
 	i = 0;
 	hex = numfetch(ap, info);
 	save = numbase(hex, 16, caps, &i);
-	if (info->altform && ft_strcmp(save, "0"))
-		ft_putstr("0X");
-	ft_putstr(save);
+	length = ft_strlen(save);
+	i = info->min_width;
+	if (info->left && info->altform && ft_strcmp(save, "0"))
+		ft_putstr((caps) ? "0X" : "0x");
+	(info->left ? ft_putstr(save) : 0);
+	while (i-- > length)
+		ft_putchar((info->padding) ? '0' : ' ');
+	if (!info->left && info->altform && ft_strcmp(save, "0"))
+		ft_putstr((caps) ? "0X" : "0x");
+	(info->left ? 0 : ft_putstr(save));
 	return (1);
 }
 
-/*
-** Wrong
-*/ 
 int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 {
-	uint64_t	hex;
-	char		*save;
-	int			i;
+	unsigned long int	hex;
+	char				*save;
+	int					i;
 
 	i = 0;
-	hex = numfetch(ap, info);
-	save = numbase(hex & 0x7FFFFFFFFFFF, 16, caps, &i);
-	// ft_putstr("0x7fff");
-	i = ft_strlen(save);
-	ft_putstr("0x7");
-	while (i++ < 11)
-		ft_putchar('f');
-	ft_putstr(save);
+	hex = va_arg(ap, unsigned long int);
+	save = numbase(hex, 16, caps, &i);
+	if (!info->altform)
+		ft_putstr((caps) ? "0X" : "0x");
+	if (!hex)
+		ft_putchar('0');
+	else
+		ft_putstr(save);
 	return (1);
 }
 
