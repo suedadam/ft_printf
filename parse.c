@@ -23,7 +23,7 @@ void	flag_parse(char **str, t_options *info, va_list ap)
 		while (flags[i].command)
 		{
 			if (**str == flags[i].command)
-				flags[i].func(ap, info);
+				flags[i].func(ap, info, str);
 			i++;
 		}
 		(*str)++;

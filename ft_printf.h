@@ -46,9 +46,10 @@ typedef	struct 		s_options
 int		ft_printf(const char *str, ...);
 
 /* flags.c */
-int			altform(va_list ap, t_options *info);
-int			padded(va_list ap, t_options *info);
-int			left(va_list ap, t_options *info);
+int			altform(va_list ap, t_options *info, char **str);
+int			padded(va_list ap, t_options *info, char **str);
+int			left(va_list ap, t_options *info, char **str);
+int			space(va_list ap, t_options *info, char **str);
 uint64_t	numfetch(va_list ap, t_options *info);
 
 /* parse.c */
@@ -82,7 +83,7 @@ struct 	entry {
 
 struct flag_entry {
 	char	command;
-	int 	(*func)(va_list, struct s_options *);
+	int 	(*func)(va_list, struct s_options *, char **);
 };
 
 extern struct flag_entry	flags[];

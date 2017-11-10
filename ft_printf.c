@@ -15,7 +15,8 @@
 struct	flag_entry	flags[] = {
 	{'#', &altform},
 	{'0', &padded},
-	{'-', &left}
+	{'-', &left},
+	{' ', &space}
 };
 
 struct	entry		conversion[] = {

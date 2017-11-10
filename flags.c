@@ -13,27 +13,39 @@
 #include <stdarg.h>
 #include "ft_printf.h"
 
-int			altform(va_list ap, t_options *info)
+int			altform(va_list ap, t_options *info, char **str)
 {
 	info->altform = 1;
 	(void)ap;
+	(void)str;
 	return (1);
 }
 
-int			padded(va_list ap, t_options *info)
+int			padded(va_list ap, t_options *info, char **str)
 {
 	if (!info->left)
 		info->padding = 1;
 	(void)ap;
+	(void)str;
 	return (1);
 }
 
-int			left(va_list ap, t_options *info)
+int			left(va_list ap, t_options *info, char **str)
 {
 	if (info->padding)
 		info->padding = 0;
 	info->left = 1;
 	(void)ap;
+	(void)str;
+	return (1);
+}
+
+int			space(va_list ap, t_options *info, char **str)
+{
+	ft_putchar(' ');
+	(*str)++;
+	(void)ap;
+	(void)info;
 	return (1);
 }
 
