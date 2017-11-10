@@ -125,8 +125,12 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 
 	i = 0;
 	hex = numfetch(ap, info);
-	save = numbase(hex, 16, caps, &i);
-	ft_putstr("0x7fff");
+	save = numbase(hex & 0x7FFFFFFFFFFF, 16, caps, &i);
+	// ft_putstr("0x7fff");
+	i = ft_strlen(save);
+	ft_putstr("0x7");
+	while (i++ < 11)
+		ft_putchar('f');
 	ft_putstr(save);
 	return (1);
 }
