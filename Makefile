@@ -44,7 +44,7 @@ LIBFT = libft/libft.a
 
 .PHONY = all clean fclean clean re
 
-all: $(NAME)
+all: fclean $(NAME)
 
 %.o: %.c \
 	@gcc $(CFLAGS) -c $? -o $@

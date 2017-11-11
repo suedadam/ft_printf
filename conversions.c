@@ -120,6 +120,8 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	hex = numfetch(ap, info);
 	save = numbase(hex, 16, caps, &i);
 	length = ft_strlen(save);
+	if (!length)
+		save = "0";
 	i = info->min_width;
 	if (info->left && info->altform && ft_strcmp(save, "0"))
 		ft_putstr((caps) ? "0X" : "0x");
