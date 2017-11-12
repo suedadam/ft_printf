@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:45:57 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/12 13:34:50 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef	struct 		s_options
 	int				min_width;
 	int				percision;
 	int				length;
+	int				written;
 }					t_options;
 
 /* ft_printf.c */
@@ -52,7 +53,6 @@ int			padded(va_list ap, t_options *info, char **str);
 int			left(va_list ap, t_options *info, char **str);
 int			space(va_list ap, t_options *info, char **str);
 int			special(va_list ap, t_options *info, char **str);
-uint64_t	numfetch(va_list ap, t_options *info);
 
 /* parse.c */
 void	flag_parse(char **str, t_options *info, va_list ap);
@@ -60,6 +60,10 @@ void	min_width(char **str, t_options *info, va_list ap);
 void	percision(char **str, t_options *info, va_list ap);
 void	l_modifier(char **str, t_options *info, va_list ap);
 int		odd_check(char **str, t_options	*info, va_list ap);
+
+/* num_fetch.c */
+uint64_t	s_numfetch(va_list ap, t_options *info);
+uint64_t	u_numfetch(va_list ap, t_options *info);
 
 /* conversions.c */
 
@@ -72,7 +76,8 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info);
 int	octal(va_list ap, uint8_t caps, t_options *info);
 
 /* utils.c */
-size_t	n_length(__int64_t n);
+size_t	s_n_length(__int64_t n);
+size_t	u_n_length(__uint64_t n);
 void	ft_unichar(int c, t_options *info);
 char	*numbase(size_t dec, int base, uint8_t caps, int *i);
 void	clearvar(t_options *info);

@@ -12,6 +12,10 @@
 
 #include "ft_printf.h"
 
+//Remove me
+#include <stdio.h>
+//End remove me
+
 struct	flag_entry	flags[] = {
 	{'#', &altform},
 	{'0', &padded},
@@ -39,6 +43,7 @@ int	ft_printf(const char *str, ...)
 	t_options	info;
 
 	va_start(ap, str);
+	info.written = 0;
 	while (*str)
 	{
 		if (*str == '%')
@@ -63,8 +68,12 @@ int	ft_printf(const char *str, ...)
 			}
 		}
 		else
+		{
 			ft_putchar(*str++);
+			info.written++;
+			// printf("\nItterated up %d\n", info.written);
+		}
 	}
 	va_end(ap);
-	return (1);
+	return (info.written);
 }
