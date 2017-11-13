@@ -6,13 +6,33 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 14:18:19 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:32:42 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdio.h>
 #include "ft_printf.h"
+
+size_t	n_length(__int64_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!n)
+		return (1);
+	if (n < 0)
+	{
+		i++;
+		n = -n;
+	}
+	while (n)
+	{
+		i++;
+		n /= 10;
+	}
+	return (i);
+}
 
 size_t	s_n_length(__int64_t n)
 {
