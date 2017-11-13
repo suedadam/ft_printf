@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/07 08:15:31 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/13 14:15:36 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC = ft_printf.c \
 		parse.c \
 		utils.c \
 		conversions.c \
+		num_fetch.c \
 		flags.c \
 		libft/ft_tolower.c \
 		libft/ft_strcmp.c \

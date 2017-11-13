@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 08:29:54 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:18:19 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,33 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
-size_t	n_length(__int64_t n)
+size_t	s_n_length(__int64_t n)
 {
 	size_t	i;
 
 	i = 0;
-
+	if (!n)
+		return (1);
 	if (n < 0)
 	{
 		i++;
 		n = -n;
 	}
+	while (n)
+	{
+		i++;
+		n /= 10;
+	}
+	return (i);
+}
+
+size_t	u_n_length(__uint64_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!n)
+		return (1);
 	while (n)
 	{
 		i++;
@@ -76,7 +92,7 @@ char	*numbase(size_t dec, int base, uint8_t caps, int *i)
 	if (!*i)
 		ft_bzero(buffer, 20);
 	if (!dec)
-		return (NULL);
+		return (buffer);
 	numbase(dec / base, base, caps, i);
 	if (caps)
 		buffer[*i] = "0123456789ABCDEF"[dec % base];
@@ -96,5 +112,6 @@ void	clearvar(t_options *info)
 	info->min_width = 0;
 	info->percision = 0;
 	info->length = 0;
+	info->left = 0;
 	info->special = 0;
 }

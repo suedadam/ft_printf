@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/08 18:34:15 by suedadam         ###   ########.fr       */
+/*   Updated: 2017/11/13 14:18:46 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	uinteger(va_list ap, uint8_t caps, t_options *info)
 		num = va_arg(ap, size_t);
 	else
 		num = va_arg(ap, unsigned int);
-	length = n_length(num);
+	length = u_n_length(num);
 	i = info->min_width;
 	(info->left ? ft_uputnbr(num) : 0);
 	while ((__uint64_t)i-- > length)
@@ -88,7 +88,7 @@ int	integer(va_list ap, uint8_t caps, t_options *info)
 		num = va_arg(ap, ssize_t);
 	else
 		num = va_arg(ap, int);
-	length = n_length(num);
+	length = s_n_length(num);
 	i = info->min_width;
 	(info->left ? ft_putnbr(num) : 0);
 	while (i-- > length)

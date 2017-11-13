@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:45:57 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:15:29 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,15 @@ typedef	struct 		s_options
 	int				min_width;
 	int				percision;
 	int				length;
+	int				written;
 }					t_options;
 
 /* ft_printf.c */
 int		ft_printf(const char *str, ...);
+
+/* num_fetch.c */
+uint64_t	u_numfetch(va_list ap, t_options *info);
+uint64_t	s_numfetch(va_list ap, t_options *info);
 
 /* flags.c */
 int			altform(va_list ap, t_options *info, char **str);
@@ -52,7 +57,6 @@ int			padded(va_list ap, t_options *info, char **str);
 int			left(va_list ap, t_options *info, char **str);
 int			space(va_list ap, t_options *info, char **str);
 int			special(va_list ap, t_options *info, char **str);
-uint64_t	numfetch(va_list ap, t_options *info);
 
 /* parse.c */
 void	flag_parse(char **str, t_options *info, va_list ap);
