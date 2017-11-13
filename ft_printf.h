@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 14:15:29 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:19:47 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info);
 int	octal(va_list ap, uint8_t caps, t_options *info);
 
 /* utils.c */
-size_t	n_length(__int64_t n);
+size_t	u_n_length(__uint64_t n);
+size_t	s_n_length(__int64_t n);
 void	ft_unichar(int c, t_options *info);
 char	*numbase(size_t dec, int base, uint8_t caps, int *i);
 void	clearvar(t_options *info);
