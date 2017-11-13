@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:45:57 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:46:41 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef	struct 		s_options
 	int				min_width;
 	int				percision;
 	int				length;
+	int				written;
 }					t_options;
 
 /* ft_printf.c */
