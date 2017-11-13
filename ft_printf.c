@@ -6,11 +6,15 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 14:45:59 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 08:39:07 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+//Remove me
+#include <stdio.h>
+//End remove me
 
 struct	flag_entry	flags[] = {
 	{'#', &altform},
@@ -64,7 +68,11 @@ int	ft_printf(const char *str, ...)
 			}
 		}
 		else
+		{
 			ft_putchar(*str++);
+			info.written++;
+			// printf("\nItterated up %d\n", info.written);
+		}
 	}
 	va_end(ap);
 	return (info.written);

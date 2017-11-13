@@ -6,31 +6,13 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 15:06:43 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/12 13:45:34 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdio.h>
 #include "ft_printf.h"
-
-size_t	s_n_length(__int64_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (n < 0)
-	{
-		i++;
-		n = -n;
-	}
-	while (n)
-	{
-		i++;
-		n /= 10;
-	}
-	return (i);
-}
 
 size_t	u_n_length(__uint64_t n)
 {
@@ -39,6 +21,26 @@ size_t	u_n_length(__uint64_t n)
 	i = 0;
 	if (!n)
 		return (1);
+	while (n)
+	{
+		i++;
+		n /= 10;
+	}
+	return (i);
+}
+
+size_t	s_n_length(__int64_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!n)
+		return (1);
+	if (n < 0)
+	{
+		i++;
+		n = -n;
+	}
 	while (n)
 	{
 		i++;
@@ -107,9 +109,9 @@ void	clearvar(t_options *info)
 	info->neg = 0;
 	info->space = 0;
 	info->sign = 0;
+	info->left = 0;
+	info->special = 0;
 	info->min_width = 0;
 	info->percision = 0;
 	info->length = 0;
-	info->left = 0;
-	info->special = 0;
 }

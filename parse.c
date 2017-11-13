@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 15:00:01 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/12 13:35:37 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int		odd_check(char **str, t_options	*info, va_list ap)
 	if (**str == '%')
 	{
 		ft_putchar(**str);
+		info->written++;
 		(*str)++;
 		return (1);
 	}
