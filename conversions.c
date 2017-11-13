@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/12 18:35:07 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/12 21:51:34 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,21 @@ int	integer(va_list ap, uint8_t caps, t_options *info)
 	num = s_numfetch(ap, info);
 	length = s_n_length(num);
 	i = info->min_width;
-	if (i < info->percision)
-	{
-		i = info->percision;
-		info->padding = 1;
-	}
 	(info->left ? ft_putnbr(num) : 0);
 	while(length < i)
 	{
-		ft_putchar((info->padding) ? '0' : ' ');
+		if (length == (i - info->percision + 1))
+		{
+			ft_putchar((info->padding) ? '0' : ' ');
+			if (num < 0)
+			{
+				ft_putchar('-');
+				num = -num;
+			}
+			info->padding = 1;
+		}
+		else
+			ft_putchar((info->padding) ? '0' : ' ');
 		length++;
 	}
 	(info->left ? 0 : ft_putnbr(num));
