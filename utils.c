@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 08:29:54 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:45:32 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void	clearvar(t_options *info)
 	info->min_width = 0;
 	info->percision = 0;
 	info->length = 0;
+	info->left = 0;
 	info->special = 0;
 }
