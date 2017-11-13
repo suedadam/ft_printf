@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 14:45:32 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:59:45 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,31 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
-size_t	n_length(__int64_t n)
+size_t	s_n_length(__int64_t n)
 {
 	size_t	i;
 
 	i = 0;
-
 	if (n < 0)
 	{
 		i++;
 		n = -n;
 	}
+	while (n)
+	{
+		i++;
+		n /= 10;
+	}
+	return (i);
+}
+
+size_t	u_n_length(__uint64_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!n)
+		return (1);
 	while (n)
 	{
 		i++;
