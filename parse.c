@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 03:54:25 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:20:31 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	min_width(char **str, t_options *info, va_list ap)
 	else if (**str >= '0' && **str <= '9')
 	{
 		info->min_width = ft_atoi(*str);
-		(*str) += n_length(info->min_width);
+		(*str) += s_n_length(info->min_width);
 	}
 }
 
@@ -57,7 +57,7 @@ void	percision(char **str, t_options *info, va_list ap)
 		else if (**str >= '0' && **str <= '9')
 		{
 			info->percision = ft_atoi(*str);
-			(*str) += n_length(info->percision);
+			(*str) += s_n_length(info->percision);
 		}
 	}
 }
