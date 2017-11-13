@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 14:46:41 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:48:26 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ typedef	struct 		s_options
 
 /* ft_printf.c */
 int		ft_printf(const char *str, ...);
+
+/* num_fetch .c */
+uint64_t	u_numfetch(va_list ap, t_options *info);
+uint64_t	s_numfetch(va_list ap, t_options *info);
 
 /* flags.c */
 int			altform(va_list ap, t_options *info, char **str);
