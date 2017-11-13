@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/12 13:22:55 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/13 15:38:12 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,7 @@ SRC_OBJ = $(subst .c,.o, $(SRC))
 
 LIBFT = libft/libft.a
 
-.PHONY = all clean fclean clean re
-
-all: fclean $(NAME)
+all: $(NAME)
 
 %.o: %.c \
 	@gcc $(CFLAGS) -c $? -o $@
