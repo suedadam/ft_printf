@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 14:38:57 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/07 08:39:07 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	ft_printf(const char *str, ...)
 	t_options	info;
 
 	va_start(ap, str);
-	// info.written = 0;
 	while (*str)
 	{
 		if (*str == '%')

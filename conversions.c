@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 14:36:48 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/08 18:34:15 by suedadam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	int			length;
 
 	i = 0;
-	hex = u_numfetch(ap, info);
+	hex = numfetch(ap, info);
 	save = numbase(hex, 16, caps, &i);
 	length = ft_strlen(save);
 	if (!length)
@@ -160,7 +160,7 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	int			i;
 
 	i = 0;
-	hex = u_numfetch(ap, info);
+	hex = numfetch(ap, info);
 	save = numbase(hex, 8, caps, &i);
 	if (info->altform && save[0] != '0')
 		ft_putchar('0');
