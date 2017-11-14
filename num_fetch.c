@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:20:47 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/12 13:22:19 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 21:07:14 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ uint64_t	u_numfetch(va_list ap, t_options *info)
 	return (ret);
 }
 
-uint64_t	s_numfetch(va_list ap, t_options *info)
+int64_t		s_numfetch(va_list ap, t_options *info)
 {
 	int64_t ret;
 

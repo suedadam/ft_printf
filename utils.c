@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 16:42:16 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 23:04:27 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*numbase(size_t dec, int base, uint8_t caps, int *i)
 	if (!*i)
 		ft_bzero(buffer, 40);
 	if (!dec)
-		return (NULL);
+		return (buffer);
 	numbase(dec / base, base, caps, i);
 	if (caps)
 		buffer[*i] = "0123456789ABCDEF"[dec % base];
@@ -114,4 +114,6 @@ void	clearvar(t_options *info)
 	info->min_width = 0;
 	info->percision = 0;
 	info->length = 0;
+	info->spacing = 0;
+	info->plus = 0;
 }

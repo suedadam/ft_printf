@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/07 07:37:59 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 23:03:42 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,16 @@ int			left(va_list ap, t_options *info, char **str)
 
 int			space(va_list ap, t_options *info, char **str)
 {
-	ft_putchar(' ');
+	info->spacing = 1;
+	(*str)++;
+	(void)ap;
+	(void)info;
+	return (1);
+}
+
+int			plus(va_list ap, t_options *info, char **str)
+{
+	info->plus = 1;
 	(*str)++;
 	(void)ap;
 	(void)info;

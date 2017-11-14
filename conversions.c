@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 17:26:01 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 23:04:15 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	string(va_list ap, uint8_t caps, t_options *info)
 	wchar_t	*str;
 
 	str = va_arg(ap, wchar_t *);
+	if (info->spacing)
+		ft_putchar(' ');
 	length = ft_strlen((char *)str);
 	if (caps)
 		info->length = 3;
@@ -47,6 +49,8 @@ int	uinteger(va_list ap, uint8_t caps, t_options *info)
 	int			i;
  
  	num = u_numfetch(ap, info);
+ 	if (info->spacing)
+ 		ft_putchar(' ');
 	length = u_n_length(num);
 	i = info->min_width;
 	(info->left ? ft_uputnbr(num) : 0);
@@ -63,20 +67,26 @@ int	uinteger(va_list ap, uint8_t caps, t_options *info)
 
 int	integer(va_list ap, uint8_t caps, t_options *info)
 {
-	intmax_t	num;
+	__int64_t	num;
 	__int64_t	length;
 	int			i;
  
  	if (caps)
  		info->length = 3;
 	num = s_numfetch(ap, info);
+	if (num > 0 && info->spacing)
+		ft_putchar(' ');
+	if (num > 0 && info->plus)
+		ft_putchar('+');
+	// printf("\nFetched num = %jd\n", num);
 	length = s_n_length(num);
+	// printf("Length of num = %d\n", length);
 	i = info->min_width;
-	if (i < info->percision)
-	{
-		i = info->percision;
-		info->padding = 1;
-	}
+	// if (i < info->percision)
+	// {
+	// 	i = info->percision;
+	// 	info->padding = 1;
+	// }
 	(info->left ? ft_putnbr(num) : 0);
 	while(length < i)
 	{
@@ -132,6 +142,8 @@ int	charparse(va_list ap, uint8_t caps, t_options *info)
 {
 	if (caps)
 		info->length = 3;
+	if (info->spacing)
+		ft_putchar(' ');
 	if (info->special)
 		ft_unichar(va_arg(ap, wchar_t), info);
 	else
@@ -149,7 +161,12 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 
 	i = 0;
 	hex = u_numfetch(ap, info);
-	save = numbase(hex, 16, caps, &i);
+	if (info->spacing)
+		ft_putchar(' ');
+	if (hex)
+		save = numbase(hex, 16, caps, &i);
+	else
+		save = "0";
 	// if (!save)
 	// 	save = "0";
 	length = ft_strlen(save);
@@ -183,9 +200,12 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 
 	i = 0;
 	hex = va_arg(ap, unsigned long int);
-	save = numbase(hex, 16, caps, &i);
-	// if (!save)
-	// 	save = "0";
+	if (info->spacing)
+		ft_putchar(' ');
+	if (hex)
+		save = numbase(hex, 16, caps, &i);
+	else
+		save = "0";
 	i = ft_strlen(save);
 	if (!info->altform)
 	{
@@ -208,13 +228,12 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	if (caps)
 		info->length = 3;
 	hex = u_numfetch(ap, info);
+	if (info->spacing)
+		ft_putchar(' ');
 	if (hex)
 		save = numbase(hex, 8, caps, &i);
 	else
-	{
-		return (1);
 		save = "0";
-	}
 	length = ft_strlen(save);
 	i = info->min_width;
 	if (info->altform && *save != '0')

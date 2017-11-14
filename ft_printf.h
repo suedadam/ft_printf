@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/12 13:34:50 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 23:04:22 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@
 ** 4 = ll (long long int/unsigned long long int)
 ** 5 = j (intmax_t/uintmax_t)
 ** 6 = z (size_t/ssize_t)
+
+** Repurposed length for integer to handle the space sign.
 */
 
 typedef	struct 		s_options
 {
-	uint8_t			altform:1,padding:1,neg:1,space:1,sign:1,left:1,special:1;
+	uint8_t			altform:1,padding:1,neg:1,space:1,sign:1,left:1,special:1,plus:1;
 	int				min_width;
 	int				percision;
 	int				length;
+	uint8_t			spacing;
 	int				written;
 }					t_options;
 
@@ -53,6 +56,7 @@ int			padded(va_list ap, t_options *info, char **str);
 int			left(va_list ap, t_options *info, char **str);
 int			space(va_list ap, t_options *info, char **str);
 int			special(va_list ap, t_options *info, char **str);
+int			plus(va_list ap, t_options *info, char **str);
 
 /* parse.c */
 void	flag_parse(char **str, t_options *info, va_list ap);
@@ -62,7 +66,7 @@ void	l_modifier(char **str, t_options *info, va_list ap);
 int		odd_check(char **str, t_options	*info, va_list ap);
 
 /* num_fetch.c */
-uint64_t	s_numfetch(va_list ap, t_options *info);
+int64_t		s_numfetch(va_list ap, t_options *info);
 uint64_t	u_numfetch(va_list ap, t_options *info);
 
 /* conversions.c */
