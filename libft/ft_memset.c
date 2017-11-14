@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.us.org>            +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:20:10 by asyed             #+#    #+#             */
-/*   Updated: 2017/09/23 00:09:06 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/14 02:09:09 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 void	*ft_memset(void *ptr, int val, size_t num)
 {
 	char	*d;
+	int		i;
 
 	d = (char *)ptr;
-	while (num--)
+	i = 0;
+	while (i < num)
+	{
 		*(d++) = val;
+		i++;
+	}
 	return (ptr);
 }

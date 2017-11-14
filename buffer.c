@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   buffer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/22 00:05:42 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 00:53:59 by asyed            ###   ########.fr       */
+/*   Created: 2017/11/14 00:43:34 by asyed             #+#    #+#             */
+/*   Updated: 2017/11/14 01:00:32 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#include "ft_printf.h"
 
-void	ft_putstr_fd(char const *s, int fd)
+/*
+** Zero it out incase we need to use it after!
+** Amoritization :)
+*/
+
+void	print_buffer(char *str, t_options *info)
 {
 	int	length;
 
-	if (s)
-	{
-		length = ft_strlen(s);
-		write(fd, s, length);
-	}
+	length = ft_strlen(str);
+	info->written += length;
+	ft_putstr(str);
+	ft_bzero(str, length * sizeof(char));
+}
+
+void	addchar(char *str, char c)
+{
+	while (*str)
+		str++;
+	*str = c;
 }

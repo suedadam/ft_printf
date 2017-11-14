@@ -6,17 +6,13 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 23:02:36 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/14 01:51:56 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-//Remove me
-#include <stdio.h>
-//End remove me
-
-struct	flag_entry	flags[] = {
+struct s_flag_entry	flags[] = {
 	{'#', &altform},
 	{'0', &padded},
 	{'-', &left},
@@ -25,23 +21,24 @@ struct	flag_entry	flags[] = {
 	{'+', &plus}
 };
 
-struct	entry		conversion[] = {
-	{'s', &string},
-	{'d', &integer},
-	{'u', &uinteger},
-	{'c', &charparse},
-	{'x', &hexadec},
-	{'p', &pointeraddr},
-	{'i', &integer},
-	{'o', &octal},
-	{0, NULL}
-};
+// struct entry		conversion[] = {
+// 	{'s', &string},
+// 	{'d', &integer},
+// 	{'u', &uinteger},
+// 	{'c', &charparse},
+// 	{'x', &hexadec},
+// 	{'p', &pointeraddr},
+// 	{'i', &integer},
+// 	{'o', &octal},
+// 	{0, NULL}
+// };
 
 int	ft_printf(const char *str, ...)
 {
 	va_list		ap;
 	int			i;
 	t_options	info;
+	char		buffer[1028];
 
 	va_start(ap, str);
 	info.written = 0;
@@ -49,32 +46,17 @@ int	ft_printf(const char *str, ...)
 	{
 		if (*str == '%')
 		{
+			if (*buffer)
+				print_buffer(buffer, &info);
 			clearvar(&info);
 			str++;
-			flag_parse((char **)&str, &info, ap);
-			min_width((char **)&str, &info, ap);
-			percision((char **)&str, &info, ap);
-			l_modifier((char **)&str, &info, ap);
-			if (odd_check((char **)&str, &info, ap))
-				continue ;
-			i = 0;
-			while (conversion[i].command)
-			{
-				if (ft_tolower(*str) == conversion[i].command)
-				{
-					str += conversion[i].func(ap, CAPS(*str), &info);
-					break ;
-				}
-				i++;
-			}
+			parse_options((char **)&str, &info, ap);
 		}
 		else
-		{
-			ft_putchar(*str++);
-			info.written++;
-			// printf("\nItterated up %d\n", info.written);
-		}
+			addchar(buffer, *str++);
 	}
+	if (*buffer)
+		print_buffer(buffer, &info);
 	va_end(ap);
 	return (info.written);
 }
