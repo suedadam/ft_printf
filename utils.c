@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:54:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 15:08:57 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 16:36:55 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ void	ft_unichar(int c, t_options *info)
 
 char	*numbase(size_t dec, int base, uint8_t caps, int *i)
 {
-	static	char	buffer[20];
+	static	char	buffer[40];
 
 	if (!*i)
-		ft_bzero(buffer, 20);
+		ft_bzero(buffer, 40);
 	if (!dec)
 		return (NULL);
 	numbase(dec / base, base, caps, i);

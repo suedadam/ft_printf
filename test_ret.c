@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:30:39 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/12 14:42:06 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 16:35:57 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,22 @@ main(int argc, char *argv[])
 	// printf(" (%d)\n", ret);
 	// ret = ft_printf("ft: (%zu, %zu)", 0, ULLONG_MAX);
 	// ft_printf(" (%d)\n", ret);
-	// ret = printf("pf: (%zo, %zo)", 0, ULLONG_MAX);
-	// printf(" (%d)\n", ret);
-	// ret = ft_printf("ft: (%zo, %zo)", 0, ULLONG_MAX);
-	// ft_printf(" (%d)\n", ret);
-	ret = printf("pf: (%-#10o, %o)", 0, ULLONG_MAX);
+	ret = printf("pf: (%zo, %zo)", 0, ULLONG_MAX);
 	printf(" (%d)\n", ret);
-	ret = ft_printf("ft: (%-#10o, %o)", 0, ULLONG_MAX);
+	ret = ft_printf("ft: (%zo, %zo)", 0, ULLONG_MAX);
 	ft_printf(" (%d)\n", ret);
-	ret = printf("pf: (%zx, %zx)", 0, ULLONG_MAX);
+	// ret = printf("pf: (%-#10o, %o)", 0, ULLONG_MAX);
+	// printf(" (%d)\n", ret);
+	// ret = ft_printf("ft: (%-#10o, %o)", 0, ULLONG_MAX);
+	// ft_printf(" (%d)\n", ret);
+	// ret = printf("pf: (%zx, %zx)", 0, ULLONG_MAX);
+	// printf(" (%d)\n", ret);
+	// ret = ft_printf("ft: (%zx, %zx)", 0, ULLONG_MAX);
+	// ft_printf(" (%d)\n", ret);
+	// ft_printf(" (%d)\n", ret);
+	ret = printf("pf: (%O)", LONG_MAX);
 	printf(" (%d)\n", ret);
-	ret = ft_printf("ft: (%zx, %zx)", 0, ULLONG_MAX);
+	ret = ft_printf("ft: (%O)", LONG_MAX);
 	ft_printf(" (%d)\n", ret);
 	return (1);
 }
