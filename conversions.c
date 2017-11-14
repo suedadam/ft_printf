@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 17:08:20 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 17:09:16 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,8 +210,8 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	hex = u_numfetch(ap, info);
 	save = numbase(hex, 8, caps, &i);
 	printf("save = \"%s\"\n", save);
-	// if (!save)
-	// 	save = "0";
+	if (!save)
+		save = "0\0";
 	length = ft_strlen(save);
 	i = info->min_width;
 	if (info->altform && *save != '0')
