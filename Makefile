@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/13 15:38:12 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/13 15:58:42 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,17 +51,13 @@ all: $(NAME)
 $(NAME): $(SRC_OBJ)
 	@/bin/rm -f $(NAME)
 	@ar rcs $(NAME) $(SRC_OBJ)
-	@ranlib $(NAME)
-
 
 clean:
-	@make -C libft clean
 	@rm -f $(SRC_OBJ)
 	@echo "\033[32mRemoved Object Files\033[0m"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@make -C libft fclean
 	@echo "\033[32mRemoved Executable\033[0m"
 
 re: fclean all
