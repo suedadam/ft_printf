@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/13 15:58:42 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/13 16:14:02 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,19 +45,19 @@ LIBFT = libft/libft.a
 
 all: $(NAME)
 
-%.o: %.c \
-	@gcc $(CFLAGS) -c $? -o $@
+%.o: %.c
+	@gcc $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(SRC_OBJ)
 	@/bin/rm -f $(NAME)
 	@ar rcs $(NAME) $(SRC_OBJ)
 
 clean:
-	@rm -f $(SRC_OBJ)
+	@/bin/rm -f $(SRC_OBJ)
 	@echo "\033[32mRemoved Object Files\033[0m"
 
 fclean: clean
-	@rm -rf $(NAME)
+	@/bin/rm -rf $(NAME)
 	@echo "\033[32mRemoved Executable\033[0m"
 
-re: fclean all
+re: clean all
