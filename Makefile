@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/13 16:14:02 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/13 16:17:35 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,25 +39,21 @@ SRC = ft_printf.c \
 		libft/ft_uputnbr.c \
 
 
-SRC_OBJ = $(subst .c,.o, $(SRC))		
-
-LIBFT = libft/libft.a
+SRC_OBJ = $(subst .c,.o, $(SRC))
 
 all: $(NAME)
 
 %.o: %.c
-	@gcc $(CFLAGS) -c $^ -o $@
+	gcc $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(SRC_OBJ)
-	@/bin/rm -f $(NAME)
-	@ar rcs $(NAME) $(SRC_OBJ)
+	/bin/rm -f $(NAME)
+	ar rcs $(NAME) $(SRC_OBJ)
 
 clean:
-	@/bin/rm -f $(SRC_OBJ)
-	@echo "\033[32mRemoved Object Files\033[0m"
+	/bin/rm -f $(SRC_OBJ)
 
 fclean: clean
-	@/bin/rm -rf $(NAME)
-	@echo "\033[32mRemoved Executable\033[0m"
+	/bin/rm -rf $(NAME)
 
 re: clean all
