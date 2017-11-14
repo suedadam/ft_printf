@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/13 16:17:35 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/13 17:14:36 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = ft_printf.c \
 		libft/ft_strcmp.c \
 		libft/ft_putstr.c \
 		libft/ft_putnbr.c \
+		libft/ft_strcpy.c \
 		libft/ft_putchar.c \
 		libft/ft_bzero.c \
 		libft/ft_atoi.c \
