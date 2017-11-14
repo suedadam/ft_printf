@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:19:16 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/13 17:16:15 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/13 17:18:09 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	if (save == NULL)
 	{
 		// printf("bullshit\n");
+		free(save);
 		save = calloc(2, sizeof(char));
 		save = ft_strcpy(save, "0");
 		// save = "0";
