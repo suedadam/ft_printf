@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 02:00:14 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/14 14:39:31 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef	struct		s_options
 	uint8_t			special:1;
 	uint8_t			plus:1;
 	int				min_width;
-	int				percision;
+	int				precision;
 	int				length;
 	int				written;
 	char			*buf;
@@ -65,6 +65,7 @@ uint64_t			u_numfetch(va_list ap, t_options *info);
 */
 void				clearvar(t_options *info);
 size_t				s_n_length(intmax_t n);
+size_t				u_n_length(uintmax_t n);
 
 /*
 ** buffer.c
@@ -77,6 +78,8 @@ void				addchar(char *str, char c);
 */
 void				parse_options(char **str, t_options *info, va_list ap);
 void				min_width(char **str, t_options *info, va_list ap);
+void				precision(char **str, t_options *info, va_list ap);
+void				l_modifier(char **str, t_options *info, va_list ap);
 
 /*
 ** flags.c
@@ -87,6 +90,12 @@ int					left(t_options *info);
 int					space(t_options *info);
 int					special(t_options *info);
 int					plus(t_options *info);
+
+/*
+** format.c
+*/
+int					precision_adjust(t_options *info, intmax_t num);
+int					integer(va_list ap, uint8_t caps, t_options *info);
 
 
 struct				s_entry {

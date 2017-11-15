@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 01:51:56 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/14 14:12:32 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,16 @@ struct s_flag_entry	flags[] = {
 	{'+', &plus}
 };
 
-// struct entry		conversion[] = {
-// 	{'s', &string},
-// 	{'d', &integer},
-// 	{'u', &uinteger},
-// 	{'c', &charparse},
-// 	{'x', &hexadec},
-// 	{'p', &pointeraddr},
-// 	{'i', &integer},
-// 	{'o', &octal},
-// 	{0, NULL}
-// };
+struct s_entry		conversion[] = {
+	// {'s', &string},
+	{'d', &integer},
+	// {'u', &uinteger},
+	// {'c', &charparse},
+	// {'x', &hexadec},
+	// {'p', &pointeraddr},
+	// {'i', &integer},
+	// {'o', &octal},
+};
 
 int	ft_printf(const char *str, ...)
 {
@@ -51,6 +50,16 @@ int	ft_printf(const char *str, ...)
 			clearvar(&info);
 			str++;
 			parse_options((char **)&str, &info, ap);
+			i = 0;
+			while (conversion[i].command)
+			{
+				if (ft_tolower(*str) == conversion[i].command)
+				{
+					str += conversion[i].func(ap, CAPS(*str), &info);
+					break ;
+				}
+				i++;
+			}
 		}
 		else
 			addchar(buffer, *str++);
