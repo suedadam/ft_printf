@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 14:39:31 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/15 13:21:03 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int					plus(t_options *info);
 */
 int					precision_adjust(t_options *info, intmax_t num);
 int					integer(va_list ap, uint8_t caps, t_options *info);
+int					percent(va_list ap, uint8_t caps, t_options *info);
 
 
 struct				s_entry {

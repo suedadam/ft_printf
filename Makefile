@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/14 00:27:05 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/15 13:32:04 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,12 @@ NAME = libftprintf.a
 CFLAGS += -Wall -Werror -Wextra
 
 SRC = ft_printf.c \
+		utils.c \
+		parse.c \
+		num_fetch.c \
+		format.c \
+		flags.c \
+		buffer.c \
 		libft/ft_tolower.c \
 		libft/ft_strcmp.c \
 		libft/ft_putstr.c \
