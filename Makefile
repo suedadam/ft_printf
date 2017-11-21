@@ -6,13 +6,13 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 01:09:10 by asyed             #+#    #+#              #
-#    Updated: 2017/11/15 13:32:04 by asyed            ###   ########.fr        #
+#    Updated: 2017/11/20 09:55:14 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-CFLAGS += -Wall -Werror -Wextra
+CFLAGS += -Wall -Werror -Wextra -g
 
 SRC = ft_printf.c \
 		utils.c \
@@ -38,6 +38,7 @@ SRC = ft_printf.c \
 		libft/ft_strlen.c \
 		libft/ft_uputnbr_fd.c \
 		libft/ft_uputnbr.c \
+		libft/ft_wcslen.c \
 
 
 SRC_OBJ = $(subst .c,.o, $(SRC))		

@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 00:38:23 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 14:39:17 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/20 13:55:53 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,33 @@ size_t	u_n_length(uintmax_t n)
 		n /= 10;
 	}
 	return (i);
+}
+
+int		ft_unichar(va_list ap, t_options *info)
+{
+	int c;
+
+	c = va_arg(ap, wchar_t);
+	if (c < 0x80)
+		ft_putchar(c);
+	else if (c < 0x800)
+	{
+		ft_putchar(0xC0 | (c >> 6));
+		ft_putchar(0x80 | (c & 0x3F));
+	}
+	else if (c < 0x10000)
+	{
+		ft_putchar(0xE0 | (c >> 12));
+		ft_putchar(0x80 | (c >> 6 & 0x3F));
+		ft_putchar(0x80 | (c & 0x3F));
+	}
+	else if (c < 0x200000)
+	{
+		ft_putchar(0xF0 | (c >> 18));
+		ft_putchar(0x80 | (c >> 12 & 0x3F));
+		ft_putchar(0x80 | (c >> 6 & 0x3F));
+		ft_putchar(0x80 | (c & 0x3F));
+	}
+	(void)info;
+	return (1);
 }

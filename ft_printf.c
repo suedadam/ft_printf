@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/16 10:13:58 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/20 13:50:15 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ struct s_flag_entry	flags[] = {
 };
 
 struct s_entry		conversion[] = {
-	// {'s', &string},
+	{'s', &string},
 	{'d', &integer},
 	{'%', &percent},
 	// {'u', &uinteger},
-	// {'c', &charparse},
+	{'c', &charparse},
 	// {'x', &hexadec},
 	// {'p', &pointeraddr},
 	// {'i', &integer},
@@ -38,7 +38,7 @@ int	ft_printf(const char *str, ...)
 	va_list		ap;
 	int			i;
 	t_options	info;
-	char		buffer[1024];
+	char		buffer[1024] = "";
 
 	va_start(ap, str);
 	info.written = 0;
