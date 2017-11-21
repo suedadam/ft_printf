@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 12:57:53 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/20 16:31:51 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/21 13:51:22 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int wcharstr(va_list ap, t_options *info)
 int	string(va_list ap, uint8_t caps, t_options *info)
 {
 	char	*str;
-	char	buf[1024];
+	char	buf[1024] = "";
 	int		i;
 
 	caps = (info->length == 3) ? 1 : caps;
@@ -168,7 +168,6 @@ int	string(va_list ap, uint8_t caps, t_options *info)
 	info->written += info->precision;
 	if (info->left)
 		print_buffer(buf, info);
-	(void)caps;
 	return (1);
 }
 
@@ -181,6 +180,63 @@ int	charparse(va_list ap, uint8_t caps, t_options *info)
 	return (1);
 }
 
+void	null_hex(t_options *info)
+{
+	ft_putchar('0');
+	info->written++;
+}
+
+int	octal(va_list ap, uint8_t caps, t_options *info)
+{
+	uint64_t	hex;
+	char		*save;
+	int			i;
+
+	i = 0;
+	caps = (info->length == 3) ? 1 : caps;
+	hex = u_numfetch(ap, info);
+	save = numbase(hex, 8, caps, &i);
+	i = ft_strlen(save);
+	if (!i)
+		null_hex(info);
+	info->written += (info->altform) ? 1 : 0;
+	if (!info->left && info->altform && *save != '0')
+		write(1, "0", 1);
+	ft_putstr(save);
+	// info->written += info->precision;
+	info->written += i;
+	if (info->left && info->altform && *save != '0')
+		write(1, "0", 1);
+	return (1);
+}
+
+int	hexadec(va_list ap, uint8_t caps, t_options *info)
+{
+	uint64_t	hex;
+	char		buf[1024] = "";
+	char		*save;
+	int			i;
+
+	i = 0;
+	hex = u_numfetch(ap, info);
+	save = numbase(hex, 16, caps, &i);
+	i = ft_strlen(save);
+	if (!i)
+		null_hex(info);
+	if (info->altform)
+	{
+		addchar(buf, '0');
+		addchar(buf, (caps) ? 'X' : 'x');
+	}
+	if (!info->left)
+		print_buffer(buf, info);
+	ft_putstr(save);
+	// info->written += info->precision;
+	info->written += i;
+	if (info->left)
+		print_buffer(buf, info);
+	return (1);
+}
 
 // int	string(va_list ap, uint8_t caps, t_options *info)
 // {

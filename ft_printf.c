@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/20 13:50:15 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/21 13:48:53 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ struct s_entry		conversion[] = {
 	{'%', &percent},
 	// {'u', &uinteger},
 	{'c', &charparse},
-	// {'x', &hexadec},
+	{'x', &hexadec},
 	// {'p', &pointeraddr},
-	// {'i', &integer},
-	// {'o', &octal},
+	{'i', &integer},
+	{'o', &octal},
 };
 
 int	ft_printf(const char *str, ...)

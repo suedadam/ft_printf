@@ -30,6 +30,13 @@ main(void)
 	test_c();
 	test_d();
 	test_ld();
+	test_x();
+	test_zero();
+	test_o();
+	int i;
+
+	printf("pf: %x\n", -0);
+	ft_printf("ft: %x\n", -0);
 }
 
 int		test_ls( void )
@@ -433,5 +440,192 @@ int		test_c( void )
 		return 1;
 	}
 	printf(ANSI_COLOR_RED "test_c: [ko]\n" ANSI_COLOR_RESET);
+	return 0;
+}
+
+int		test_x( void )
+{
+	int			r00 = 0;
+	fpos_t		pos;
+	FILE		*fpin, *fpout;
+	int			fdin, fdout;
+	int			fd = dup(fileno(stdout));
+
+	//fpin = fopen("test_x.in", "w+");
+	//fprintf(fpin, "%x", 42);
+	//fprintf(fpin, "Kashim a %x histoires à raconter", 1001);
+	//fprintf(fpin, "Il fait au moins %x\n", -8000);
+	//fprintf(fpin, "%x", -0);
+	//fprintf(fpin, "%x", 0);
+	//fprintf(fpin, "%x", INT_MAX);
+	//fprintf(fpin, "%x", INT_MIN);
+	//fprintf(fpin, "%x", INT_MIN - 1);
+	//fprintf(fpin, "%x", INT_MAX + 1);
+	//fprintf(fpin, "%%x 0000042 == |%x|\n", 0000042);
+	//fprintf(fpin, "%%x \t == |%x|\n", '\t');
+	//fprintf(fpin, "%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	//fclose(fpin);
+
+	fgetpos(stdout, &pos);
+	freopen("test_x.out", "w+", stdout);
+	ft_printf("%x", 42);
+	ft_printf("Kashim a %x histoires à raconter", 1001);
+	ft_printf("Il fait au moins %x\n", -8000);
+	ft_printf("%x", -0);
+	ft_printf("%x", 0);
+	ft_printf("%x", INT_MAX);
+	ft_printf("%x", INT_MIN);
+	ft_printf("%x", INT_MIN - 1);
+	ft_printf("%x", INT_MAX + 1);
+	ft_printf("%%x 0000042 == |%x|\n", 0000042);
+	ft_printf("%%x \t == |%x|\n", '\t');
+	ft_printf("%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+
+	chmod("test_x.out", 0644);
+	fpin = fopen("test_x.in", "r+");
+	fpout = fopen("test_x.out", "r+");
+	if (!fpin || !fpout) {
+		perror("error: ");
+		return 0;
+	}
+	fdin = getc(fpin);
+	fdout = getc(fpout);
+	while ((fdin != EOF) && (fdout != EOF) && (fdin == fdout)) {
+		fdin = getc(fpin);
+		fdout = getc(fpout);
+	}
+
+	if (fdin != fdout)
+		r00 = 1;
+
+	fflush(stdout);
+	dup2(fd, fileno(stdout));
+	close(fd);
+	clearerr(stdout);
+	fsetpos(stdout, &pos);
+	if (r00 == 0) {
+		printf("test_x: [ok]\n");
+		return 1;
+	}
+	printf(ANSI_COLOR_RED "test_x: [ko]\n" ANSI_COLOR_RESET);
+	return 0;
+}
+int		test_o( void )
+{
+	int			r00 = 0;
+	fpos_t		pos;
+	FILE		*fpin, *fpout;
+	int			fdin, fdout;
+	int			fd = dup(fileno(stdout));
+
+	// fpin = fopen("test_o.in", "w+");
+	// fprintf(fpin, "%o", 42);
+	// fprintf(fpin, "Kashim a %o histoires à raconter", 1001);
+	// fprintf(fpin, "Il fait au moins %o\n", -8000);
+	// fprintf(fpin, "%o", -0);
+	// fprintf(fpin, "%o", 0);
+	// fprintf(fpin, "%o", INT_MAX);
+	// fprintf(fpin, "%o", INT_MIN);
+	// fprintf(fpin, "%o", INT_MIN - 1);
+	// fprintf(fpin, "%o", INT_MAX + 1);
+	// fprintf(fpin, "%%o 0000042 == |%o|\n", 0000042);
+	// fprintf(fpin, "%%o \t == |%o|\n", '\t');
+	// fprintf(fpin, "%%o Lydie == |%o|\n", 'L'+'y'+'d'+'i'+'e');
+	// fclose(fpin);
+
+	fgetpos(stdout, &pos);
+	freopen("test_o.out", "w+", stdout);
+	ft_printf("%o", 42);
+	ft_printf("Kashim a %o histoires à raconter", 1001);
+	ft_printf("Il fait au moins %o\n", -8000);
+	ft_printf("%o", -0);
+	ft_printf("%o", 0);
+	ft_printf("%o", INT_MAX);
+	ft_printf("%o", INT_MIN);
+	ft_printf("%o", INT_MIN - 1);
+	ft_printf("%o", INT_MAX + 1);
+	ft_printf("%%o 0000042 == |%o|\n", 0000042);
+	ft_printf("%%o \t == |%o|\n", '\t');
+	ft_printf("%%o Lydie == |%o|\n", 'L'+'y'+'d'+'i'+'e');
+
+	chmod("test_o.out", 0644);
+	fpin = fopen("test_o.in", "r+");
+	fpout = fopen("test_o.out", "r+");
+	if (!fpin || !fpout) {
+		perror("error: ");
+		return 0;
+	}
+	fdin = getc(fpin);
+	fdout = getc(fpout);
+	while ((fdin != EOF) && (fdout != EOF) && (fdin == fdout)) {
+		fdin = getc(fpin);
+		fdout = getc(fpout);
+	}
+
+	if (fdin != fdout)
+		r00 = 1;
+
+	fflush(stdout);
+	dup2(fd, fileno(stdout));
+	close(fd);
+	clearerr(stdout);
+	fsetpos(stdout, &pos);
+	if (r00 == 0) {
+		printf("test_o: [ok]\n");
+		return 1;
+	}
+	printf(ANSI_COLOR_RED "test_o: [ko]\n" ANSI_COLOR_RESET);
+	return 0;
+}
+
+int		test_zero( void )
+{
+	int			r00 = 0;
+	fpos_t		pos;
+	FILE		*fpin, *fpout;
+	int			fdin, fdout;
+	int			fd = dup(fileno(stdout));
+
+	//fpin = fopen("test_zero.in", "w+");
+	//fprintf(fpin, "%%04i 42 == |%04i|\n", 42);
+	//fprintf(fpin, "%%05i 42 == |%05i|\n", 42);
+	//fprintf(fpin, "%%0i 42 == |%0i|\n", 42);
+	//fprintf(fpin, "%%0d 0000042 == |%0d|\n", 0000042);
+
+	//fclose(fpin);
+
+	fgetpos(stdout, &pos);
+	freopen("test_zero.out", "w+", stdout);
+	ft_printf("%%04i 42 == |%04i|\n", 42);
+	ft_printf("%%05i 42 == |%05i|\n", 42);
+	ft_printf("%%0i 42 == |%0i|\n", 42);
+	ft_printf("%%0d 0000042 == |%0d|\n", 0000042);
+
+	chmod("test_zero.out", 0644);
+	fpin = fopen("test_zero.in", "r+");
+	fpout = fopen("test_zero.out", "r+");
+	if (!fpin || !fpout) {
+		perror("error: ");
+		return 0;
+	}
+	fdin = getc(fpin);
+	fdout = getc(fpout);
+	while ((fdin != EOF) && (fdout != EOF) && (fdin == fdout)) {
+		fdin = getc(fpin);
+		fdout = getc(fpout);
+	}
+	if (fdin != fdout)
+		r00 = 1;
+
+	fflush(stdout);
+	dup2(fd, fileno(stdout));
+	close(fd);
+	clearerr(stdout);
+	fsetpos(stdout, &pos);
+	if (r00 == 0) {
+		printf("test_zero: [ok]\n");
+		return 1;
+	}
+	printf(ANSI_COLOR_RED "test_zero: [ko]\n" ANSI_COLOR_RESET);
 	return 0;
 }

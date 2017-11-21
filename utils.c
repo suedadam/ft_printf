@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 00:38:23 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/20 13:55:53 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/21 13:28:23 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,23 @@ size_t	u_n_length(uintmax_t n)
 		n /= 10;
 	}
 	return (i);
+}
+
+char	*numbase(size_t dec, int base, uint8_t caps, int *i)
+{
+	static	char	buffer[40];
+
+	if (!*i)
+		ft_bzero(buffer, 40);
+	if (!dec)
+		return (NULL);
+	numbase(dec / base, base, caps, i);
+	if (caps)
+		buffer[*i] = "0123456789ABCDEF"[dec % base];
+	else
+		buffer[*i] = "0123456789abcdef"[dec % base];
+	(*i)++;
+	return (buffer);
 }
 
 int		ft_unichar(va_list ap, t_options *info)

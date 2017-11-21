@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/20 13:55:43 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/21 13:51:48 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void				clearvar(t_options *info);
 size_t				s_n_length(intmax_t n);
 size_t				u_n_length(uintmax_t n);
 int					ft_unichar(va_list ap, t_options *info);
+char				*numbase(size_t dec, int base, uint8_t caps, int *i);
 
 /*
 ** buffer.c
@@ -100,6 +101,8 @@ int					integer(va_list ap, uint8_t caps, t_options *info);
 int					percent(va_list ap, uint8_t caps, t_options *info);
 int					string(va_list ap, uint8_t caps, t_options *info);
 int					charparse(va_list ap, uint8_t caps, t_options *info);
+int					hexadec(va_list ap, uint8_t caps, t_options *info);
+int					octal(va_list ap, uint8_t caps, t_options *info);
 
 struct				s_entry {
 	char	command;
