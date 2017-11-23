@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/21 13:51:48 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/22 14:21:14 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int					string(va_list ap, uint8_t caps, t_options *info);
 int					charparse(va_list ap, uint8_t caps, t_options *info);
 int					hexadec(va_list ap, uint8_t caps, t_options *info);
 int					octal(va_list ap, uint8_t caps, t_options *info);
+int					uinteger(va_list ap, uint8_t caps, t_options *info);
+int					pointeraddr(va_list ap, uint8_t caps, t_options *info);
 
 struct				s_entry {
 	char	command;

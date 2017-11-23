@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 22:22:48 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/21 13:48:53 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/22 14:19:41 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ struct s_entry		conversion[] = {
 	{'s', &string},
 	{'d', &integer},
 	{'%', &percent},
-	// {'u', &uinteger},
+	{'u', &uinteger},
 	{'c', &charparse},
 	{'x', &hexadec},
-	// {'p', &pointeraddr},
+	{'p', &pointeraddr},
 	{'i', &integer},
 	{'o', &octal},
 };

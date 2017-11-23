@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 12:57:53 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/21 13:51:22 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/22 14:26:08 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,43 @@ void	multi_print(char c, int n)
 	while (i < n)
 		buf[i++] = c;
 	ft_putstr(buf);
+}
+
+int 	uinteger(va_list ap, uint8_t caps, t_options *info)
+{
+	__uint64_t	num;
+
+	info->length = (caps) ? 3 : info->length;
+	num = u_numfetch(ap, info);
+	precision_adjust(info, num);
+	if (!info->left)
+	{
+		ft_putstr((info->altform) ? info->buf : 0);
+		if (info->plus)
+		{
+			info->written++;
+			ft_putchar('+');
+		}
+		ft_putstr((info->altform) ? 0 : info->buf);
+		while ((info->precision)-- > 0)
+			ft_putchar('0');
+		ft_uputnbr(num);
+	}
+	else
+	{
+		if (info->plus)
+		{
+			info->written++;
+			ft_putchar('+');
+		}
+		while ((info->precision)-- > 0)
+			ft_putchar('0');
+		ft_uputnbr(num);
+		ft_putstr(info->buf);
+	}
+	info->written += u_n_length(num);
+	(void)caps;
+	return (1);
 }
 
 int		integer(va_list ap, uint8_t caps, t_options *info)
@@ -173,10 +210,11 @@ int	string(va_list ap, uint8_t caps, t_options *info)
 
 int	charparse(va_list ap, uint8_t caps, t_options *info)
 {
-	if (caps || info->length == 3)
-		return (ft_unichar(ap, info));
+	// if (caps || info->length == 3)
+	// 	return (ft_unichar(ap, info));
 	ft_putchar((unsigned char)va_arg(ap, int));
 	info->written++;
+	(void)caps;
 	return (1);
 }
 
@@ -235,6 +273,31 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	info->written += i;
 	if (info->left)
 		print_buffer(buf, info);
+	return (1);
+}
+
+int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
+{
+	uint64_t	hex;
+	char		*save;
+	int			i;
+
+	i = 0;
+	hex = u_numfetch(ap, info);
+	save = numbase(hex, 16, caps, &i);
+	i = ft_strlen(save);
+	if (!i)
+	{
+		ft_putstr("0x0");
+		i += 3;
+	}
+	else
+	{
+		ft_putstr("0x");
+		ft_putstr(save);
+		i += 2;
+	}
+	info->written += i;
 	return (1);
 }
 

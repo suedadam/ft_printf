@@ -6,15 +6,15 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:20:47 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 00:59:54 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/21 18:24:06 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-uint64_t	u_numfetch(va_list ap, t_options *info)
+__uint64_t	u_numfetch(va_list ap, t_options *info)
 {
-	uint64_t ret;
+	__uint64_t ret;
 
 	if (info->length == 1)
 		ret = (unsigned short int)va_arg(ap, unsigned int);
@@ -29,7 +29,7 @@ uint64_t	u_numfetch(va_list ap, t_options *info)
 	else if (info->length == 6)
 		ret = va_arg(ap, size_t);
 	else
-		ret = va_arg(ap, unsigned int);
+		ret = va_arg(ap, __uint64_t);
 	return (ret);
 }
 
