@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 00:55:06 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 14:29:22 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/24 21:27:19 by suedadam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ void	parse_options(char **str, t_options *info, va_list ap)
 
 void	min_width(char **str, t_options *info, va_list ap)
 {
-	static char	buf[1024] = "";
-	int		i;
-
 	if (**str == '*')
 	{
 		info->min_width = va_arg(ap, int);
@@ -53,14 +50,6 @@ void	min_width(char **str, t_options *info, va_list ap)
 	{
 		info->min_width = ft_atoi(*str);
 		(*str) += s_n_length(info->min_width);
-	}
-	if (info->min_width)
-	{
-		i = 0;
-		while (i < info->min_width)
-			buf[i++] = (info->padding) ? '0' : ' ';
-		buf[i] = '\0';
-		info->buf = buf;
 	}
 }
 
@@ -85,6 +74,7 @@ void	precision(char **str, t_options *info, va_list ap)
 			info->precision = ft_atoi(*str);
 			(*str) += s_n_length(info->precision);
 		}
+		info->altform = 0;
 		// if (info->min_width)
 		// {
 		// 	i = info->min_width - info->precision;

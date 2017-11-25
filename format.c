@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 12:57:53 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/22 14:26:08 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/24 23:08:15 by suedadam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,90 @@ int		percent(va_list ap, uint8_t caps, t_options *info)
 	return (1);
 }
 
-int		precision_adjust(t_options *info, intmax_t num)
+int 		build_precision(t_options *info)
 {
-	intmax_t	i;
+	int i;
+	static char buf[1024] = "";
+
+	i = 0;
+	ft_bzero(buf, 1024);
+	while (i < info->precision)
+	{
+		buf[i] = '0';
+		i++;
+	}
+	info->precisionbuf = buf;
+	return (1);
+}
+
+int			build_minwidth(t_options *info)
+{
+	int i;
+	static char buf[1024];
+
+	i = 0;
+	ft_bzero(buf, 1024);
+	while (i < info->min_width)
+	{
+		buf[i] = (info->padding) ? '0' : ' ';
+		i++;
+	}
+	info->buf = buf;
+	return (1);
+}
+
+int			precision_adjust(t_options * info, intmax_t num)
+{
 	intmax_t	length;
 
 	length = s_n_length(num);
-	if (info->min_width)
-	{
-		info->min_width -= (length + ((info->plus) ? 1 : 0));
-		i = info->min_width;
-		while ((info->buf)[i])
-			(info->buf)[i++] = '\0';
-		if (num < 0)
-			num = -num;
-		info->written += info->min_width;
-	}
 	if (info->precision)
 	{
-		info->precision -= length;
-		info->written -= info->min_width;
-		info->min_width -= info->precision;
-		info->written += info->precision;
+		info->padding = 0;
+		if (info->precision > length)
+		{
+			info->precision -= length;
+			info->min_width -= info->precision;			
+		}
+		else
+			info->precision = 0;
 	}
+	if (info->min_width)
+	{
+		info->min_width -= length + info->plus;
+		if (info->min_width < 0)
+			info->min_width = (info->space) ? 1 : 0;
+	}
+	build_minwidth(info);
+	build_precision(info);
 	return (1);
 }
+
+// int		precision_adjust(t_options *info, intmax_t num)
+// {
+// 	intmax_t	i;
+// 	intmax_t	length;
+
+// 	length = s_n_length(num);
+// 	if (info->min_width)
+// 	{
+// 		info->min_width -= (length + ((info->plus) ? 1 : 0));
+// 		i = info->min_width;
+// 		while ((info->buf)[i])
+// 			(info->buf)[i++] = '\0';
+// 		if (num < 0)
+// 			num = -num;
+// 		info->written += info->min_width;
+// 	}
+// 	if (info->precision)
+// 	{
+// 		info->precision -= length;
+// 		info->written -= info->min_width;
+// 		info->min_width -= info->precision;
+// 		info->written += info->precision;
+// 	}
+// 	return (1);
+// }
 
 /*
 ** Max itterated size = 1024 bytes.
@@ -108,41 +167,28 @@ int		integer(va_list ap, uint8_t caps, t_options *info)
 	else
 		num = s_numfetch(ap, info);
 	precision_adjust(info, num);
-	if (!info->left)
+	if (info->plus && num > 0)
 	{
-		ft_putstr((info->altform) ? info->buf : 0);
-		if (num < 0)
-		{
-			num = -num;
-			ft_putchar('-');
-			info->written++;
-		}
-		if (info->plus && num > 0)
-		{
-			info->written++;
-			ft_putchar('+');
-		}
-		ft_putstr((info->altform) ? 0 : info->buf);
-		while ((info->precision)-- > 0)
-			ft_putchar('0');
+		info->written++;
+		ft_putchar('+');
+	}
+	if (num < 0)
+	{
+		num = -num;
+		ft_putchar('-');
+		info->written++;
+	}
+	if (info->left)
+	{
+		print_buffer(info->precisionbuf, info);
 		ft_putnbr(num);
+		print_buffer(info->buf, info);
 	}
 	else
 	{
-		if (num < 0)
-		{
-			num = -num;
-			ft_putchar('-');
-		}
-		else if (info->plus)
-		{
-			info->written++;
-			ft_putchar('+');
-		}
-		while ((info->precision)-- > 0)
-			ft_putchar('0');
+		print_buffer(info->buf, info);
+		print_buffer(info->precisionbuf, info);
 		ft_putnbr(num);
-		ft_putstr(info->buf);
 	}
 	info->written += s_n_length(num);
 	return (1);

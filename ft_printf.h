@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/22 14:21:14 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/24 22:15:39 by suedadam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ typedef	struct		s_options
 	int				min_width;
 	int				precision;
 	int				length;
-	int				written;
+	int				written;		
 	char			*buf;
+	char			*precisionbuf;
 }					t_options;
 
 /*

@@ -19,10 +19,38 @@ main(void)
 	// printf("%d\n", ret);
 	// ret = printf("pf: %p\n", 0);
 	// printf("%d\n", ret);
-	ret = ft_printf("ft: %X\n", &c);
-	printf("%d\n", ret);
-	// ret = printf("pf: %p\n", &c);
+	// ret = ft_printf("ft: %X\n", &c);
 	// printf("%d\n", ret);
-	ret = ft_printf("%X\n", 10000);
+	// // ret = printf("pf: %p\n", &c);
+	// // printf("%d\n", ret);
+	// ret = ft_printf("%X\n", 10000);
+	// printf("%d\n", ret);
+	ret = ft_printf("ft: %% 4.5i 42 == |% 4.5i|\n", 42);
+	printf("%d\n", ret);
+	ret = printf("pf: %% 4.5i 42 == |% 4.5i|\n", 42);
+	printf("%d\n", ret);
+
+	ret = ft_printf("ft: %%04.2i 42 == |%04.2i|\n", 42);
+	printf("%d\n", ret);
+	ret = printf("pf: %%04.2i 42 == |%04.2i|\n", 42);
+	printf("%d\n", ret);
+
+
+	printf("\n ===== Garbage tests=====\n");
+	// ret = ft_printf("ft: %%0-4.2i 42 == |%0-4.3i|\n", 42);
+	// printf("%d\n", ret);
+	// ret = printf("pf: %%0-4.2i 42 == |%0-4.3i|\n", 42);
+	// printf("%d\n", ret);
+	// ret = ft_printf("ft: %%04.2i 42 == |%-4.3i|\n", 42);
+	// printf("%d\n", ret);
+	// ret = printf("pf: %%04.2i 42 == |%-4.3i|\n", 42);
+	// printf("%d\n", ret);
+	// ret = ft_printf("ft: |%04i|\n", 42);
+	// printf("%d\n", ret);
+	// ret = printf("pf: |%04i|\n", 42);
+	// printf("%d\n", ret);
+	ret = ft_printf("ft: |%+.4d|\n", 42);
+	printf("%d\n", ret);
+	ret = printf("pf: |%+.4d|\n", 42);
 	printf("%d\n", ret);
 }
