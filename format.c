@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 12:57:53 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/27 02:55:21 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/27 14:46:17 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,8 @@ int		pointeraddr(va_list ap, uint8_t caps, t_options *info)
 	int			i;
 
 	i = 0;
+	if (!info->length)
+		info->length = 4;
 	hex = u_numfetch(ap, info);
 	save = numbase(hex, 16, caps, &i);
 	i = ft_strlen(save);

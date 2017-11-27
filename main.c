@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 18:24:57 by lle-blev          #+#    #+#             */
-/*   Updated: 2017/11/27 02:51:40 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/27 12:35:15 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2505,7 +2505,7 @@ int             main( void ) {
         printf("Testing %%g\n");
         count += test_g();
         printf("Testing %%Le\n");
-        // count += test_l();
+        count += test_l();
         printf("Testing %%n\n");
         count += test_n();
         return 0;
