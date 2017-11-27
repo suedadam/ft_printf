@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/24 22:15:39 by suedadam         ###   ########.fr       */
+/*   Updated: 2017/11/26 21:16:45 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define CAPS(c) (c >= 'A' && c <= 'Z')
 # define IS_FLAG(c) (c == '-' || c == '0' || c == '+' || c == ' ' || c == '#')
 # define IS_LMOD(c) (c == 'h' || c == 'l' || c == 'L' || c == 'j' || c == 'z')
+# define IS_SET(c) (c >= 1)
 
 /*
 ** Length code chart:

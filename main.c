@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 18:24:57 by lle-blev          #+#    #+#             */
-/*   Updated: 2017/11/22 13:48:41 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/26 21:04:52 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2481,7 +2481,7 @@ int             main( void ) {
         count += test_precision();
         printf("Testing #\n");
         // count += test_sharp();
-        printf(ANSI_COLOR_RED "SEG FAULT\n", ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "SEG FAULT\n" ANSI_COLOR_RESET);
         printf("Testing space\n");
         count += test_space();
         printf("Testing %%u\n");

@@ -49,16 +49,18 @@ main(void)
 	// printf("%d\n", ret);
 	// ret = printf("pf: |%04i|\n", 42);
 	// printf("%d\n", ret);
-	// ret = ft_printf("ft: |%+.4d|\n", 42);
-	// printf("%d\n", ret);
+	ret = ft_printf("ft: %%+04d 42 == %0+04d\n", 42);
+	printf("%d\n", ret);
+	ret = printf("pf: %%+04d 42 == %0+04d\n", 42);
+	printf("%d\n", ret);
 	// ret = printf("pf: |%+.4d|\n", 42);
 	// printf("%d\n", ret);
 	// ret = ft_printf("ft: %%      i 42 == |%      i|\n", 42);
 	// printf("%d\n", ret);
 	// ret = printf("pf: %%      i 42 == |%      i|\n", 42);
 	// printf("%d\n", ret);
-	printf("\"% 1d\"\n", 42);
-	printf("\"% 4d\"\n", -42);
-	ft_printf("\"% 1d\"\n", 42);
-	ft_printf("\"% 4d\"\n", -42);
+	// printf("\"% 1d\"\n", 42);
+	// printf("\"% 4d\"\n", -42);
+	// ft_printf("\"% 1d\"\n", 42);
+	// ft_printf("\"% 4d\"\n", -42);
 }

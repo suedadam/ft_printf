@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 12:57:53 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/26 20:46:09 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/26 21:21:03 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			build_minwidth(t_options *info, intmax_t numlen)
 		buf[i] = (info->padding) ? '0' : ' ';
 		i++;
 	}
-	if (info->min_width < numlen && info->space)
+	if ((info->min_width + info->precision) < numlen && info->space)
 		buf[i] = ' ';
 	info->buf = buf;
 	return (1);
@@ -77,8 +77,10 @@ int			precision_adjust(t_options * info, intmax_t num)
 		if (info->min_width < 0)
 			info->min_width = (info->space) ? 1 : 0;
 	}
-	build_minwidth(info, length);
+	if (num < 0)
+		info->space = 0;
 	build_precision(info);
+	build_minwidth(info, length);
 	return (1);
 }
 
@@ -162,7 +164,8 @@ int 	uinteger(va_list ap, uint8_t caps, t_options *info)
 
 int		integer(va_list ap, uint8_t caps, t_options *info)
 {
-	intmax_t	num;	
+	intmax_t	num;
+	char		sign;
 
 	if (caps)
 		num = va_arg(ap, long int);
@@ -170,25 +173,15 @@ int		integer(va_list ap, uint8_t caps, t_options *info)
 		num = s_numfetch(ap, info);
 	precision_adjust(info, num);
 	if (info->plus && num > 0)
-	{
-		info->written++;
-		if (!info->left)
-			addchar(info->buf, '+');
-		else
-			ft_putchar('+');
-	}
+		sign = '+';
 	if (num < 0)
 	{
 		num = -num;
-		info->space = 0;
-		if (!info->left)
-			addchar(info->buf, '-');
-		else
-			ft_putchar('-');
-		info->written++;
+		sign = '-';
 	}
 	if (info->left)
 	{
+		(sign) ? ft_putchar(sign) : 0;
 		print_buffer(info->precisionbuf, info);
 		ft_putnbr(num);
 		print_buffer(info->buf, info);
@@ -196,10 +189,11 @@ int		integer(va_list ap, uint8_t caps, t_options *info)
 	else
 	{
 		print_buffer(info->buf, info);
+		(sign) ? ft_putchar(sign) : 0;
 		print_buffer(info->precisionbuf, info);
 		ft_putnbr(num);
 	}
-	info->written += s_n_length(num);
+	info->written += s_n_length(num) + IS_SET(sign);
 	return (1);
 }
 
