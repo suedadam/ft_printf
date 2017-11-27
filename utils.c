@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 00:38:23 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/27 14:30:10 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/27 15:23:53 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ size_t	s_n_length(intmax_t n)
 	int	i;
 
 	i = 0;
-
 	if (!n)
 		return (1);
 	if (n < 0)
@@ -59,7 +58,6 @@ size_t	u_n_length(uintmax_t n)
 	int	i;
 
 	i = 0;
-
 	if (!n)
 		return (1);
 	while (n)

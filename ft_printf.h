@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 00:32:07 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/27 12:39:47 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/27 15:54:02 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 ** 6 = z (size_t/ssize_t)
 */
 
-typedef	struct		s_options
+typedef	struct	s_options
 {
 	uint8_t			altform:1;
 	uint8_t			padding:1;
@@ -46,77 +46,116 @@ typedef	struct		s_options
 	int				min_width;
 	int				precision;
 	int				length;
-	int				written;		
+	int				written;
 	char			*buf;
 	char			*precisionbuf;
-}					t_options;
+}				t_options;
 
 /*
 ** ft_printf.c
 */
-int					ft_printf(const char *str, ...);
+int				ft_printf(const char *str, ...);
+void			command_search(const char **str, va_list ap, t_options *info);
+
+/*
+** integer.c
+*/
+int				uinteger(va_list ap, uint8_t caps, t_options *info);
+int				integer(va_list ap, uint8_t caps, t_options *info);
+
+/*
+** length.c
+*/
+int				build_precision(t_options *info);
+int				build_minwidth(t_options *info, intmax_t numlen);
+int				precision_adjust(t_options *info, intmax_t num);
+int				u_precision_adjust(t_options *info, uintmax_t num);
+void			alignment_handle(t_options *info, char sign, intmax_t num);
 
 /*
 ** num_fetch.c
 */
-int64_t				s_numfetch(va_list ap, t_options *info);
-uint64_t			u_numfetch(va_list ap, t_options *info);
-
-/*
-** utils.c
-*/
-void				clearvar(t_options *info);
-size_t				s_n_length(intmax_t n);
-size_t				u_n_length(uintmax_t n);
-int					ft_unichar(va_list ap, t_options *info);
-char				*numbase(size_t dec, int base, uint8_t caps, int *i);
-
-/*
-** buffer.c
-*/
-void				print_buffer(char *str, t_options *info);
-void				addchar(char *str, char c);
+int64_t			s_numfetch(va_list ap, t_options *info);
+uint64_t		u_numfetch(va_list ap, t_options *info);
 
 /*
 ** parse.c
 */
-void				parse_options(char **str, t_options *info, va_list ap);
-void				min_width(char **str, t_options *info, va_list ap);
-void				precision(char **str, t_options *info, va_list ap);
-void				l_modifier(char **str, t_options *info, va_list ap);
+void			parse_options(char **str, t_options *info, va_list ap);
+void			min_width(char **str, t_options *info, va_list ap);
+void			precision(char **str, t_options *info, va_list ap);
+void			setitter(char **str, t_options *info, int num);
+void			l_modifier(char **str, t_options *info, va_list ap);
+
+/*
+** special.c
+*/
+int				special(t_options *info);
+
+/*
+** strings.c
+*/
+int				wcharstr(va_list ap, t_options *info);
+int				string(va_list ap, uint8_t caps, t_options *info);
+
+/*
+** tools.c
+*/
+void			multi_print(char c, int n);
+void			null_hex(t_options *info);
+
+/*
+** utils.c
+*/
+void			clearvar(t_options *info);
+size_t			s_n_length(intmax_t n);
+size_t			u_n_length(uintmax_t n);
+int				ft_unichar(va_list ap, t_options *info);
+char			*numbase(size_t dec, int base, uint8_t caps, int *i);
+
+/*
+** buffer.c
+*/
+void			print_buffer(char *str, t_options *info);
+void			addchar(char *str, char c);
 
 /*
 ** flags.c
 */
-int					altform(t_options *info);
-int					padded(t_options *info);
-int					left(t_options *info);
-int					space(t_options *info);
-int					special(t_options *info);
-int					plus(t_options *info);
+int				altform(t_options *info);
+int				padded(t_options *info);
+int				left(t_options *info);
+int				space(t_options *info);
+int				plus(t_options *info);
+
+/*
+** special.c
+*/
+int				special(t_options *info);
+
+/*
+** wide.c
+*/
+int				ft_putwstr(wchar_t *str);
 
 /*
 ** format.c
 */
-int					precision_adjust(t_options *info, intmax_t num);
-int					integer(va_list ap, uint8_t caps, t_options *info);
-int					percent(va_list ap, uint8_t caps, t_options *info);
-int					string(va_list ap, uint8_t caps, t_options *info);
-int					charparse(va_list ap, uint8_t caps, t_options *info);
-int					hexadec(va_list ap, uint8_t caps, t_options *info);
-int					octal(va_list ap, uint8_t caps, t_options *info);
-int					uinteger(va_list ap, uint8_t caps, t_options *info);
-int					pointeraddr(va_list ap, uint8_t caps, t_options *info);
+int				percent(va_list ap, uint8_t caps, t_options *info);
+int				charparse(va_list ap, uint8_t caps, t_options *info);
+int				octal(va_list ap, uint8_t caps, t_options *info);
+int				hexadec(va_list ap, uint8_t caps, t_options *info);
+int				pointeraddr(va_list ap, uint8_t caps, t_options *info);
 
-struct				s_entry {
+struct			s_entry {
 	char	command;
 	int		(*func)(va_list, uint8_t, struct s_options *);
 }					t_entry;
 
-struct				s_flag_entry {
+struct			s_flag_entry {
 	char	command;
 	int		(*func)(struct s_options *);
-}					t_flag_entry;
+}				t_flag_entry;
 
 extern struct s_flag_entry		flags[];
 extern struct s_entry			conversion[];
