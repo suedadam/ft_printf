@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 12:57:53 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/26 21:21:03 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/27 02:55:21 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		percent(va_list ap, uint8_t caps, t_options *info)
 	return (1);
 }
 
-int 		build_precision(t_options *info)
+int		build_precision(t_options *info)
 {
-	int i;
+	int			i;
 	static char buf[1024] = "";
 
 	i = 0;
@@ -37,9 +37,9 @@ int 		build_precision(t_options *info)
 	return (1);
 }
 
-int			build_minwidth(t_options *info, intmax_t numlen)
+int		build_minwidth(t_options *info, intmax_t numlen)
 {
-	int i;
+	int			i;
 	static char buf[1024];
 
 	i = 0;
@@ -55,7 +55,7 @@ int			build_minwidth(t_options *info, intmax_t numlen)
 	return (1);
 }
 
-int			precision_adjust(t_options * info, intmax_t num)
+int		precision_adjust(t_options *info, intmax_t num)
 {
 	intmax_t	length;
 
@@ -66,7 +66,7 @@ int			precision_adjust(t_options * info, intmax_t num)
 		if (info->precision > length)
 		{
 			info->precision -= length;
-			info->min_width -= info->precision;			
+			info->min_width -= info->precision;
 		}
 		else
 			info->precision = 0;
@@ -84,31 +84,32 @@ int			precision_adjust(t_options * info, intmax_t num)
 	return (1);
 }
 
-// int		precision_adjust(t_options *info, intmax_t num)
-// {
-// 	intmax_t	i;
-// 	intmax_t	length;
+int		u_precision_adjust(t_options *info, uintmax_t num)
+{
+	uintmax_t	length;
 
-// 	length = s_n_length(num);
-// 	if (info->min_width)
-// 	{
-// 		info->min_width -= (length + ((info->plus) ? 1 : 0));
-// 		i = info->min_width;
-// 		while ((info->buf)[i])
-// 			(info->buf)[i++] = '\0';
-// 		if (num < 0)
-// 			num = -num;
-// 		info->written += info->min_width;
-// 	}
-// 	if (info->precision)
-// 	{
-// 		info->precision -= length;
-// 		info->written -= info->min_width;
-// 		info->min_width -= info->precision;
-// 		info->written += info->precision;
-// 	}
-// 	return (1);
-// }
+	length = u_n_length(num);
+	if (info->precision)
+	{
+		info->padding = 0;
+		if ((uintmax_t)info->precision > length)
+		{
+			info->precision -= length;
+			info->min_width -= info->precision;
+		}
+		else
+			info->precision = 0;
+	}
+	if (info->min_width)
+	{
+		info->min_width -= length + info->plus;
+		if (info->min_width < 0)
+			info->min_width = (info->space) ? 1 : 0;
+	}
+	build_precision(info);
+	build_minwidth(info, length);
+	return (1);
+}
 
 /*
 ** Max itterated size = 1024 bytes.
@@ -125,41 +126,53 @@ void	multi_print(char c, int n)
 	ft_putstr(buf);
 }
 
-int 	uinteger(va_list ap, uint8_t caps, t_options *info)
+int		uinteger(va_list ap, uint8_t caps, t_options *info)
 {
-	__uint64_t	num;
+	uintmax_t	num;
 
 	info->length = (caps) ? 3 : info->length;
 	num = u_numfetch(ap, info);
-	precision_adjust(info, num);
-	if (!info->left)
+	u_precision_adjust(info, num);
+	if (info->left)
 	{
-		ft_putstr((info->altform) ? info->buf : 0);
-		if (info->plus)
-		{
-			info->written++;
-			ft_putchar('+');
-		}
-		ft_putstr((info->altform) ? 0 : info->buf);
-		while ((info->precision)-- > 0)
-			ft_putchar('0');
+		print_buffer(info->precisionbuf, info);
 		ft_uputnbr(num);
+		print_buffer(info->buf, info);
 	}
 	else
 	{
-		if (info->plus)
-		{
-			info->written++;
-			ft_putchar('+');
-		}
-		while ((info->precision)-- > 0)
-			ft_putchar('0');
+		print_buffer(info->buf, info);
+		print_buffer(info->precisionbuf, info);
 		ft_uputnbr(num);
-		ft_putstr(info->buf);
 	}
 	info->written += u_n_length(num);
-	(void)caps;
 	return (1);
+}
+
+void	alignment_handle(t_options *info, char sign, intmax_t num)
+{
+	if (info->left)
+	{
+		(sign) ? ft_putchar(sign) : 0;
+		print_buffer(info->precisionbuf, info);
+		ft_putnbr(num);
+		print_buffer(info->buf, info);
+	}
+	else
+	{
+		if (info->padding)
+		{
+			(sign) ? ft_putchar(sign) : 0;
+			print_buffer(info->buf, info);
+		}
+		else
+		{
+			print_buffer(info->buf, info);
+			(sign) ? ft_putchar(sign) : 0;
+		}
+		print_buffer(info->precisionbuf, info);
+		ft_putnbr(num);
+	}
 }
 
 int		integer(va_list ap, uint8_t caps, t_options *info)
@@ -179,25 +192,12 @@ int		integer(va_list ap, uint8_t caps, t_options *info)
 		num = -num;
 		sign = '-';
 	}
-	if (info->left)
-	{
-		(sign) ? ft_putchar(sign) : 0;
-		print_buffer(info->precisionbuf, info);
-		ft_putnbr(num);
-		print_buffer(info->buf, info);
-	}
-	else
-	{
-		print_buffer(info->buf, info);
-		(sign) ? ft_putchar(sign) : 0;
-		print_buffer(info->precisionbuf, info);
-		ft_putnbr(num);
-	}
+	alignment_handle(info, sign, num);
 	info->written += s_n_length(num) + IS_SET(sign);
 	return (1);
 }
 
-int ft_putwstr(wchar_t *str)
+int		ft_putwstr(wchar_t *str)
 {
 	wchar_t *p;
 
@@ -207,12 +207,13 @@ int ft_putwstr(wchar_t *str)
 	return (str - p);
 }
 
-int wcharstr(va_list ap, t_options *info)
+int		wcharstr(va_list ap, t_options *info)
 {
 	wchar_t *str;
-	char	buf[1024] = "";
+	char	buf[1024];
 	int		i;
 
+	ft_bzero(buf, 1024);
 	str = (wchar_t *)va_arg(ap, wchar_t *);
 	if (!str)
 		write(1, "(null", 6);
@@ -224,19 +225,19 @@ int wcharstr(va_list ap, t_options *info)
 	if (!info->left)
 		print_buffer(buf, info);
 	ft_putwstr(str);
-	// write(1, str, info->precision * sizeof(wchar_t));
 	info->written += info->precision;
 	if (info->left)
 		print_buffer(buf, info);
 	return (1);
 }
 
-int	string(va_list ap, uint8_t caps, t_options *info)
+int		string(va_list ap, uint8_t caps, t_options *info)
 {
 	char	*str;
-	char	buf[1024] = "";
+	char	buf[1024];
 	int		i;
 
+	ft_bzero(buf, 1024);
 	caps = (info->length == 3) ? 1 : caps;
 	if (caps)
 		return (wcharstr(ap, info));
@@ -257,10 +258,8 @@ int	string(va_list ap, uint8_t caps, t_options *info)
 	return (1);
 }
 
-int	charparse(va_list ap, uint8_t caps, t_options *info)
+int		charparse(va_list ap, uint8_t caps, t_options *info)
 {
-	// if (caps || info->length == 3)
-	// 	return (ft_unichar(ap, info));
 	ft_putchar((unsigned char)va_arg(ap, int));
 	info->written++;
 	(void)caps;
@@ -273,7 +272,7 @@ void	null_hex(t_options *info)
 	info->written++;
 }
 
-int	octal(va_list ap, uint8_t caps, t_options *info)
+int		octal(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
 	char		*save;
@@ -284,27 +283,27 @@ int	octal(va_list ap, uint8_t caps, t_options *info)
 	hex = u_numfetch(ap, info);
 	save = numbase(hex, 8, caps, &i);
 	i = ft_strlen(save);
-	if (!i)
+	if (!i || !save)
 		null_hex(info);
 	info->written += (info->altform) ? 1 : 0;
-	if (!info->left && info->altform && *save != '0')
+	if (!info->left && info->altform && save && *save != '0')
 		write(1, "0", 1);
 	ft_putstr(save);
-	// info->written += info->precision;
 	info->written += i;
-	if (info->left && info->altform && *save != '0')
+	if (info->left && info->altform && save && *save != '0')
 		write(1, "0", 1);
 	return (1);
 }
 
-int	hexadec(va_list ap, uint8_t caps, t_options *info)
+int		hexadec(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
-	char		buf[1024] = "";
+	char		buf[1024];
 	char		*save;
 	int			i;
 
 	i = 0;
+	ft_bzero(buf, 1024);
 	hex = u_numfetch(ap, info);
 	save = numbase(hex, 16, caps, &i);
 	i = ft_strlen(save);
@@ -318,14 +317,13 @@ int	hexadec(va_list ap, uint8_t caps, t_options *info)
 	if (!info->left)
 		print_buffer(buf, info);
 	ft_putstr(save);
-	// info->written += info->precision;
 	info->written += i;
 	if (info->left)
 		print_buffer(buf, info);
 	return (1);
 }
 
-int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
+int		pointeraddr(va_list ap, uint8_t caps, t_options *info)
 {
 	uint64_t	hex;
 	char		*save;
@@ -349,34 +347,3 @@ int	pointeraddr(va_list ap, uint8_t caps, t_options *info)
 	info->written += i;
 	return (1);
 }
-
-// int	string(va_list ap, uint8_t caps, t_options *info)
-// {
-// 	wchar_t	*str;
-// 	char	buf[1024];
-// 	int		i;
-
-// 	// if (caps)
-// 	// 	str = va_arg(ap, wchar_t *);
-// 	// 	str_conv(ap, info, &str);
-// 	// else
-// 		// str = va_arg(ap, char *);
-// 	str = (wchar_t *)va_arg(ap, wchar_t *);
-// 	if (!str)
-// 		write(1, "(null)", 6);
-// 	i = ft_wcslen(str);
-// 	// i = (caps) ? ft_wcslen(str) : ft_strlen((char *)str);
-// 	// i = ft_strlen((char *)str);
-// 	if (!info->precision)
-// 		info->precision = i;
-// 	if (i < info->min_width)
-// 		ft_memset(buf, ' ', info->min_width - info->precision);
-// 	if (!info->left)
-// 		print_buffer(buf, info);
-// 	write(1, str, info->precision);
-// 	info->written += info->precision;
-// 	if (info->left)
-// 		print_buffer(buf, info);
-// 	(void)caps;
-// 	return (1);
-// }

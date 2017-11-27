@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <limits.h>
 
 int
 main(void)
@@ -49,10 +50,22 @@ main(void)
 	// printf("%d\n", ret);
 	// ret = printf("pf: |%04i|\n", 42);
 	// printf("%d\n", ret);
-	ret = ft_printf("ft: %%+04d 42 == %0+04d\n", 42);
-	printf("%d\n", ret);
-	ret = printf("pf: %%+04d 42 == %0+04d\n", 42);
-	printf("%d\n", ret);
+	// ret = ft_printf("ft: %%+04d 42 == %+04d\n", 42);
+	// printf("%d\n", ret);
+	// ret = printf("pf: %%+04d 42 == %+04d\n", 42);
+	// printf("%d\n", ret);
+	// ft_printf("%%#X 42 ==  %#X\n", 42);
+	// ft_printf("%%X 42 ==  %X\n", 42);
+	ft_printf("%%#o 0 ==  %#o\n", 0);
+	// ft_printf("%%o 0 ==  %o\n", 0);
+	// ft_printf("%%#o INT_MAX ==  %#o\n", INT_MAX);
+	// ft_printf("%%o INT_MAX ==  %o\n", INT_MAX);
+	// ft_printf("%%#o INT_MIN ==  %#o\n", INT_MIN);
+	// ft_printf("%%o INT_MIN ==  %o\n", INT_MIN);
+	// ft_printf("%%#X INT_MIN ==  %#X\n", INT_MIN);
+	// ft_printf("%%X INT_MIN ==  %X\n", INT_MIN);
+	// ft_printf("%%#X INT_MAX ==  %#X\n", INT_MAX);
+	// ft_printf("%%X INT_MAX ==  %X\n", INT_MAX);
 	// ret = printf("pf: |%+.4d|\n", 42);
 	// printf("%d\n", ret);
 	// ret = ft_printf("ft: %%      i 42 == |%      i|\n", 42);
