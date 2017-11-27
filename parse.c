@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 00:55:06 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/24 21:27:19 by suedadam         ###   ########.fr       */
+/*   Updated: 2017/11/26 20:30:49 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	min_width(char **str, t_options *info, va_list ap)
 {
 	if (**str == '*')
 	{
-		info->min_width = va_arg(ap, int);
+		info->min_width += va_arg(ap, int);
 		(*str)++;
 	}
 	else if (**str >= '0' && **str <= '9')
 	{
-		info->min_width = ft_atoi(*str);
+		info->min_width += ft_atoi(*str);
 		(*str) += s_n_length(info->min_width);
 	}
 }

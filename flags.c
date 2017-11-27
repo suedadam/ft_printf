@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 01:03:33 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/14 01:52:35 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/26 20:35:51 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	space(t_options *info)
 
 int	special(t_options *info)
 {
-	info->special = 1;
+	info->min_width = 1;
 	return (1);
 }
 

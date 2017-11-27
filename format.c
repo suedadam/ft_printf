@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 12:57:53 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/24 23:08:15 by suedadam         ###   ########.fr       */
+/*   Updated: 2017/11/26 20:46:09 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int 		build_precision(t_options *info)
 	return (1);
 }
 
-int			build_minwidth(t_options *info)
+int			build_minwidth(t_options *info, intmax_t numlen)
 {
 	int i;
 	static char buf[1024];
@@ -49,6 +49,8 @@ int			build_minwidth(t_options *info)
 		buf[i] = (info->padding) ? '0' : ' ';
 		i++;
 	}
+	if (info->min_width < numlen && info->space)
+		buf[i] = ' ';
 	info->buf = buf;
 	return (1);
 }
@@ -75,7 +77,7 @@ int			precision_adjust(t_options * info, intmax_t num)
 		if (info->min_width < 0)
 			info->min_width = (info->space) ? 1 : 0;
 	}
-	build_minwidth(info);
+	build_minwidth(info, length);
 	build_precision(info);
 	return (1);
 }
@@ -170,12 +172,19 @@ int		integer(va_list ap, uint8_t caps, t_options *info)
 	if (info->plus && num > 0)
 	{
 		info->written++;
-		ft_putchar('+');
+		if (!info->left)
+			addchar(info->buf, '+');
+		else
+			ft_putchar('+');
 	}
 	if (num < 0)
 	{
 		num = -num;
-		ft_putchar('-');
+		info->space = 0;
+		if (!info->left)
+			addchar(info->buf, '-');
+		else
+			ft_putchar('-');
 		info->written++;
 	}
 	if (info->left)
