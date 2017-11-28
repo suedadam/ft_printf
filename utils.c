@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 00:38:23 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/21 13:28:23 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/27 15:23:53 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	clearvar(t_options *info)
 	info->precision = 0;
 	info->length = 0;
 	info->buf = NULL;
+	info->precisionbuf = NULL;
 }
 
 size_t	s_n_length(intmax_t n)
@@ -37,7 +38,6 @@ size_t	s_n_length(intmax_t n)
 	int	i;
 
 	i = 0;
-
 	if (!n)
 		return (1);
 	if (n < 0)
@@ -58,7 +58,6 @@ size_t	u_n_length(uintmax_t n)
 	int	i;
 
 	i = 0;
-
 	if (!n)
 		return (1);
 	while (n)

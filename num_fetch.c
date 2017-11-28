@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:20:47 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/21 18:24:06 by asyed            ###   ########.fr       */
+/*   Updated: 2017/11/27 14:46:07 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ __uint64_t	u_numfetch(va_list ap, t_options *info)
 	else if (info->length == 6)
 		ret = va_arg(ap, size_t);
 	else
-		ret = va_arg(ap, __uint64_t);
+		ret = va_arg(ap, unsigned int);
 	return (ret);
 }
 

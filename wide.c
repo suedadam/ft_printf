@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer.c                                           :+:      :+:    :+:   */
+/*   wide.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/14 00:43:34 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/27 15:30:40 by asyed            ###   ########.fr       */
+/*   Created: 2017/11/27 15:39:54 by asyed             #+#    #+#             */
+/*   Updated: 2017/11/27 15:43:26 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	print_buffer(char *str, t_options *info)
+int		ft_putwstr(wchar_t *str)
 {
-	int	length;
+	wchar_t *p;
 
-	length = ft_strlen(str);
-	info->written += length;
-	ft_putstr(str);
-	ft_bzero(str, length * sizeof(char));
-}
-
-void	addchar(char *str, char c)
-{
+	p = str;
 	while (*str)
-		str++;
-	*str = c;
+		write(1, str++, 1);
+	return (str - p);
 }

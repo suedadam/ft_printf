@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suedadam <suedadam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 00:55:06 by asyed             #+#    #+#             */
-/*   Updated: 2017/11/24 21:27:19 by suedadam         ###   ########.fr       */
+/*   Updated: 2017/11/27 15:52:08 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parse_options(char **str, t_options *info, va_list ap)
 			if (**str == flags[i].command)
 			{
 				flags[i].func(info);
-				break;
+				break ;
 			}
 			i++;
 		}
@@ -33,34 +33,24 @@ void	parse_options(char **str, t_options *info, va_list ap)
 	min_width(str, info, ap);
 	precision(str, info, ap);
 	l_modifier(str, info, ap);
-	// if (info->buf)
-	// 	printf("Inside buf = \"%s\"\n", info->buf);
-	// else
-	// 	printf("Wasn't there? (%p)\n", info->buf);
 }
 
 void	min_width(char **str, t_options *info, va_list ap)
 {
 	if (**str == '*')
 	{
-		info->min_width = va_arg(ap, int);
+		info->min_width += va_arg(ap, int);
 		(*str)++;
 	}
 	else if (**str >= '0' && **str <= '9')
 	{
-		info->min_width = ft_atoi(*str);
+		info->min_width += ft_atoi(*str);
 		(*str) += s_n_length(info->min_width);
 	}
 }
 
-/*
-** Will this be an issue if precision < min_width?
-*/
-
 void	precision(char **str, t_options *info, va_list ap)
 {
-	// int	i;
-
 	if (**str == '.')
 	{
 		(*str)++;
@@ -75,12 +65,6 @@ void	precision(char **str, t_options *info, va_list ap)
 			(*str) += s_n_length(info->precision);
 		}
 		info->altform = 0;
-		// if (info->min_width)
-		// {
-		// 	i = info->min_width - info->precision;
-		// 	while ((info->buf)[i])
-		// 		(info->buf)[i++] = '\0';
-		// }
 	}
 }
 
@@ -88,6 +72,12 @@ void	precision(char **str, t_options *info, va_list ap)
 ** The length modifier - This is a straight copy from my old code
 ** Shorten/Norm this bullshit
 */
+
+void	setitter(char **str, t_options *info, int num)
+{
+	info->length = num;
+	(*str)++;
+}
 
 void	l_modifier(char **str, t_options *info, va_list ap)
 {
@@ -97,10 +87,7 @@ void	l_modifier(char **str, t_options *info, va_list ap)
 		{
 			(*str)++;
 			if (**str == 'h')
-			{
-				info->length = 2;
-				(*str)++;
-			}
+				setitter(str, info, 2);
 			else
 				info->length = 1;
 		}
@@ -108,23 +95,14 @@ void	l_modifier(char **str, t_options *info, va_list ap)
 		{
 			(*str)++;
 			if (**str == 'l')
-			{
-				info->length = 4;
-				(*str)++;
-			}
+				setitter(str, info, 4);
 			else
 				info->length = 3;
 		}
 		else if (**str == 'j')
-		{
-			info->length = 5;
-			(*str)++;
-		}
+			setitter(str, info, 5);
 		else if (**str == 'z')
-		{
-			info->length = 6;
-			(*str)++;
-		}
+			setitter(str, info, 6);
 	}
 	(void)ap;
 }
